@@ -1,0 +1,22 @@
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0rem 4rem;
+    align-items: center;
+    color: #fff;
+    padding-top: 1rem;
+    font-size: 1.2rem;
+}
+.navigation_container{
+    display: flex;
+    flex-direction: row;
+    column-gap: 3rem;
+    text-decoration: none;
+}
+.navigation_container li{
+    text-decoration: none;
+    display: inline-block;
+    list-style: none;
+    cursor: pointer;
+}

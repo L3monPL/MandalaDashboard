@@ -1,0 +1,39 @@
+.page{
+    background-color: #141414;
+    // width: 100vw;
+    display: flex;
+    color: #fff;
+}
+.container_footer{
+    display: flex;
+    flex-direction: column;
+    // justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+.row_contact{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+    background-color: #a5a5a5;
+}
+.email_container{
+    flex: 1;
+}
+.phone_container{
+    flex: 1;
+}
+.location_container{
+    flex: 1;
+}
+.title{
+    margin-top: 2rem;
+}
+.description{
+    color: #a5a5a5;
+}
+.copyright{
+    font-size: 0.8rem;
+}

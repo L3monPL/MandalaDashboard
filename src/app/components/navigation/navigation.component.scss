@@ -2,21 +2,30 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 0rem 4rem;
+    margin: 0rem 8rem;
     align-items: center;
     color: #fff;
-    padding-top: 1rem;
+    padding-top: 0.3rem;
     font-size: 1.2rem;
 }
 .navigation_container{
     display: flex;
     flex-direction: row;
-    column-gap: 3rem;
+    column-gap: 6rem;
     text-decoration: none;
+    // align-items: center;
+    justify-content: center;
+    width: 100%;
+    // border-top: 1px solid #c4a241;
 }
 .navigation_container li{
     text-decoration: none;
     display: inline-block;
     list-style: none;
     cursor: pointer;
+    transition: 0.3s;
+}
+.navigation_container li:hover{
+    color: #c4a241;
+    transition: 0.3s;
 }

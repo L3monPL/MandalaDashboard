@@ -2,6 +2,7 @@
     height: 100vh;
     background: rgb(33,33,33);
     background: radial-gradient(circle, rgba(33,33,33,1) 0%, rgba(14,14,14,1) 100%);
+    position: relative;
 }
 main{
     display: flex;
@@ -55,4 +56,28 @@ main{
     width: 3.5rem;
     margin-top: 1.2rem;
     margin-right: 1.5rem;
+}
+.addition{
+    scale: 1;
+    height: 200px;
+    position: absolute;
+}
+.addition_top_right{
+    top: 5px;
+    right: 5px;
+}
+.addition_top_left{
+    top: 5px;
+    left: 5px;
+    transform: rotateY(180deg);
+}
+.addition_bottom_right{
+    top: 5px;
+    left: 0;
+    transform: rotateZ(90deg);
+}
+.addition_bottom_left{
+    top: 5px;
+    left: 0;
+    transform: rotateZ(180deg);
 }

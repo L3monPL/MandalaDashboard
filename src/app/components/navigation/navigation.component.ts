@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MainManagementService } from 'src/app/services/main-management.service';
 
 @Component({
   selector: 'app-navigation',
@@ -7,4 +8,11 @@ import { Component } from '@angular/core';
 })
 export class NavigationComponent {
 
+  constructor(
+    private mainService:MainManagementService
+  ) { }
+
+  smoothScroll(section: string){
+    this.mainService.smoothScrollFunc(section)
+  }
 }

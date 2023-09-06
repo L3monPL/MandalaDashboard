@@ -4,6 +4,9 @@
     background: radial-gradient(circle, rgba(33,33,33,1) 0%, rgba(14,14,14,1) 100%);
     position: relative;
 }
+.custom-font {
+    font-family: "MandalaBrampton", sans-serif;
+}
 main{
     display: flex;
     flex-direction: row;
@@ -25,8 +28,9 @@ main{
     width: 45%;
 }
 .title h1{
-    font-size: 2.4rem;
+    font-size: 3rem;
     margin-top: 0px;
+    margin-bottom: 0.5rem;
 }
 .title h3{
     font-size: 1rem;

@@ -5,6 +5,7 @@ import { HeaderModule } from 'src/app/components/header/header.module';
 import { FooterModule } from 'src/app/components/footer/footer.module';
 import { RealizationsModule } from 'src/app/components/realizations/realizations.module';
 import { RangeOfServicesModule } from 'src/app/components/range-of-services/range-of-services.module';
+import { ContactModule } from 'src/app/components/contact/contact.module';
 
 
 
@@ -17,7 +18,8 @@ import { RangeOfServicesModule } from 'src/app/components/range-of-services/rang
     HeaderModule,
     FooterModule,
     RealizationsModule,
-    RangeOfServicesModule
+    RangeOfServicesModule,
+    ContactModule
   ],
   exports: [
     HomePageComponent

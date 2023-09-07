@@ -133,6 +133,20 @@ main{
 }
 
 @media only screen and (max-width: 1000px){
+    .page{
+        // height: 70vh;
+    }
+    main{
+        flex-direction: column;
+        margin: 0rem 10%;
+    }
+    .title{
+        width: 100%;
+    }
+    .title h1{
+        font-size: 1.6rem;
+        text-align: center;
+    }
     .addition{
         scale: 1;
         height: 100px;
@@ -146,5 +160,33 @@ main{
         top: 5px;
         left: 5px;
         transform: rotateY(180deg);
+    }
+    .title_row{
+        display: flex;
+        flex-direction: column;
+        row-gap: 1rem;
+        width: 100%;
+        align-items: center;
+    }
+    .title_container{
+        width: 100%;
+    }
+    .desc_row{
+        justify-content: center;
+    }
+    .btn_container{
+        display: flex;
+        justify-content: center;
+    }
+    .title_logo{
+        margin-right: 0px;
+    }
+    .image_header{
+        width: 100%;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+    .image_header img{
+        width: 100%;
     }
 }

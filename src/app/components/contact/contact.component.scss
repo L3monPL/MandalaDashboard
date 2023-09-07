@@ -61,6 +61,15 @@
     border: 2px solid #000;
     padding: 0.5rem 0.5rem;
 }
+.card p{
+    margin: 0px;
+    color: #a0a0a0;
+}
+.card a{
+    margin: 0px;
+    color: #141414;
+    text-decoration: none;
+}
 .btn_container{
     display: flex;
     justify-content: flex-end;

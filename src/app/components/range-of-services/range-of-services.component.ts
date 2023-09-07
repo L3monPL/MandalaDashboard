@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MainManagementService } from 'src/app/services/main-management.service';
 
 @Component({
   selector: 'app-range-of-services',
@@ -7,4 +8,12 @@ import { Component } from '@angular/core';
 })
 export class RangeOfServicesComponent {
 
+  constructor(
+    private mainService:MainManagementService
+  ) { }
+
+  smoothScroll(section: string){
+    this.mainService.smoothScrollFunc(section)
+  }
+  
 }

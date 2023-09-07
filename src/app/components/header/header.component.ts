@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { MainManagementService } from 'src/app/services/main-management.service';
 import Typed from 'typed.js';
 
 @Component({
@@ -10,7 +11,10 @@ export class HeaderComponent implements OnInit{
 
   private typed?: Typed;
 
-  constructor(private el: ElementRef) {}
+  constructor(
+    private el: ElementRef,
+    private mainService:MainManagementService
+    ) {}
 
   ngOnInit(): void {
     const options = {
@@ -22,6 +26,10 @@ export class HeaderComponent implements OnInit{
 
     // Initialize Typed.js with the options
     this.typed = new Typed(this.el.nativeElement.querySelector('.typing-element'), options);
+  }
+
+  smoothScroll(section: string){
+    this.mainService.smoothScrollFunc(section)
   }
 
 }

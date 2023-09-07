@@ -3,6 +3,7 @@
     background: rgb(33,33,33);
     background: radial-gradient(circle, rgba(33,33,33,1) 0%, rgba(14,14,14,1) 100%);
     position: relative;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 30px 0px;
 }
 .custom-font {
     font-family: "MandalaBrampton", sans-serif;
@@ -118,5 +119,32 @@ main{
     }
     to {
       transform: rotate(359deg);
+    }
+}
+
+
+@media only screen and (max-width: 1400px){
+    main{
+        margin-left: 5%;
+    }
+    .title{
+        width: 60%;
+    }
+}
+
+@media only screen and (max-width: 1000px){
+    .addition{
+        scale: 1;
+        height: 100px;
+        position: absolute;
+    }
+    .addition_top_right{
+        top: 5px;
+        right: 5px;
+    }
+    .addition_top_left{
+        top: 5px;
+        left: 5px;
+        transform: rotateY(180deg);
     }
 }

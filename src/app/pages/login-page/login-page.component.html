@@ -1,0 +1,28 @@
+<div class="box">
+    <form [formGroup]="loginForm" (submit)="submit()" class="container">
+        <div class="top-header">
+            <img alt="logo" src="../../../assets/logo/Mandala_sygnet_bialy_przezroczystosc.png"/>
+            <span>Mandala Dashboard</span>
+            <!-- <header>Login</header> -->
+        </div>
+
+        <div class="input-field">
+            <input type="text" formControlName="email" placeholder="e-mail">
+            <!-- <mat-icon color="primary" fontSet="material-icons-outlined">person</mat-icon> -->
+        </div>
+        <div class="input-field">
+            <input type="password" formControlName="password" placeholder="hasło">
+            <!-- <mat-icon color="primary" fontSet="material-icons-outlined">lock</mat-icon> -->
+        </div>
+        <div class="input-field-submit">
+            <input type="submit" value="Zaloguj się">
+        </div>
+        <!-- <div class="input-field-password">
+            <a type="submit" routerLink="password">Przypomnij hasło</a>
+        </div> -->
+    </form>
+    <img class="addition addition_top_right" src="../../../assets/additions/addition01.png" alt="">
+    <img class="addition addition_top_left" src="../../../assets/additions/addition01.png" alt="">
+    <img class="addition addition_bottom_right" src="../../../assets/additions/addition01.png" alt="">
+    <img class="addition addition_bottom_left" src="../../../assets/additions/addition01.png" alt="">
+</div>

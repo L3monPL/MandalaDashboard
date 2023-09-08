@@ -2,11 +2,13 @@ header{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin: 0rem 8rem;
+    // margin: 0rem 8rem;
     align-items: center;
     color: #fff;
     padding-top: 0.3rem;
     font-size: 1.2rem;
+    position: absolute;
+    width: 100%;
 }
 .navigation_container{
     display: flex;
@@ -17,6 +19,8 @@ header{
     justify-content: center;
     width: 100%;
     padding: 0px;
+    margin: 0px;
+    padding: 1rem 0rem;
     // border-top: 1px solid #c4a241;
 }
 .navigation_container li{
@@ -37,6 +41,22 @@ header{
     border-radius: 50px;
     background-color: #c4a241;
 }
+.sticky_nav{
+    position: fixed;
+    top: 0;
+    background-color: #fff;
+    z-index: 999;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.sticky_nav li{
+    text-decoration: none;
+    display: inline-block;
+    box-sizing: border-box;
+    list-style: none;
+    cursor: pointer;
+    transition: 0.3s;
+    color: #000;
+}
 
 
 
@@ -50,10 +70,13 @@ header{
         justify-content: center;
         width: 100%;
         padding: 0px;
-        padding-top: 2rem;
+        padding-top: 3rem;
     }
     .navigation_container li{
         white-space: nowrap;
         font-size: 1rem;
+    }
+    .sticky_nav{
+        padding: 1rem 0rem;
     }
 }

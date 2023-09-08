@@ -2,7 +2,16 @@
     <!-- <div class="logo">
         MANDALA
     </div> -->
-    <ul class="navigation_container">
+    <ul *ngIf="!this.newNav" appScroll class="navigation_container">
+        <li (click)="smoothScroll('section1')">Start</li>
+        <div class="btw_marg"></div>
+        <li (click)="smoothScroll('section2')">Realizacje</li>
+        <div class="btw_marg"></div>
+        <li (click)="smoothScroll('section3')">Zakres usług</li>
+        <div class="btw_marg"></div>
+        <li (click)="smoothScroll('section4')">Kontakt</li>
+    </ul>
+    <ul *ngIf="this.newNav" appScroll class="navigation_container sticky_nav">
         <li (click)="smoothScroll('section1')">Start</li>
         <div class="btw_marg"></div>
         <li (click)="smoothScroll('section2')">Realizacje</li>

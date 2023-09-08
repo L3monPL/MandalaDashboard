@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RealizationCreateComponent } from './realization-create.component';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -9,7 +10,8 @@ import { RealizationCreateComponent } from './realization-create.component';
     RealizationCreateComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule 
   ],
   exports: [
     RealizationCreateComponent

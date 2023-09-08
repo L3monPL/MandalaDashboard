@@ -1,0 +1,34 @@
+<div class="title">
+    Utwórz nową realizacje
+</div>
+<div class="page">
+    <input type="text" placeholder="Tytuł realizacji">
+    <textarea name="description" placeholder="Opis realizacji..." id="" cols="30" rows="10"></textarea>
+
+    <div class="file_container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+        <label for="file">
+            <div *ngIf="true" class="file_text_add">
+                Dodaj zdjęcia
+            </div>
+          <input id="file" type="file" multiple (change)="handleFileInput($event)" style="display: none;">
+          <!-- <div *ngIf="fileToUploads.length > 0" class="file_done" [class.dragging]="isDragging">
+            <ul *ngIf="fileToUploads.length > 0">
+              <li *ngFor="let file of fileToUploads">{{ file.name }}</li>
+            </ul>
+          </div> -->
+        </label>
+    </div>
+    <div class="images_container">
+        <div *ngIf="fileToUploads.length > 0" class="file_done">
+            Wybierz z listy zdjecie tytułowe
+            <div *ngIf="fileToUploads.length > 0" class="list_of_upload_image">
+              <div class="item_file" *ngFor="let file of fileToUploads" [class.selected-item]="file === selectedFile"
+              (click)="selectFile(file)">
+                <div class="file_text">
+                    {{file.name}}
+                </div>
+            </div>
+            </div>
+          </div>
+    </div>
+</div>

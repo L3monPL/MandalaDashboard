@@ -8,12 +8,12 @@ const routes: Routes = [
   {
     path:'',
     component: DashboardPageComponent,
-    // children: [
-    //   {
-    //     path: 'realizations',
-    //     // loadChildren: () => import('../form-creator-page/form-creator-page.module').then(m => m.FormCreatorPageModule)
-    //   },
-    // ]
+    children: [
+      {
+        path: 'realizations',
+        loadChildren: () => import('../realization-page/realization-page.module').then(m => m.RealizationPageModule)
+      },
+    ]
   }
 ]
 
@@ -24,10 +24,11 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    DashboardNavLabelModule
+    DashboardNavLabelModule,
+    RouterModule
   ],
   exports: [
-    DashboardPageComponent
+    DashboardPageComponent,
   ]
 })
 export class DashboardPageModule { }

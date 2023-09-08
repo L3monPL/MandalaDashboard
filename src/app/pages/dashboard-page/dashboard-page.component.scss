@@ -3,6 +3,8 @@
 }
 .main_component{
     width: 100%;
+    display: flex;
+    flex-direction: row;
 }
 .navigation_component{
     background-color: #ececec;
@@ -24,4 +26,8 @@
 .navigation_component p:hover{
     color: #c5a342;
     transition: 0.3s;
+}
+.site{
+    padding: 1rem;
+    width: calc(100% - 1rem);
 }

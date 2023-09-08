@@ -139,6 +139,7 @@ main{
     main{
         flex-direction: column;
         margin: 0rem 10%;
+        justify-content: center;
     }
     .title{
         width: 100%;
@@ -146,6 +147,9 @@ main{
     .title h1{
         font-size: 1.6rem;
         text-align: center;
+    }
+    .title h3{
+        white-space: nowrap;
     }
     .addition{
         scale: 1;

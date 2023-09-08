@@ -44,12 +44,16 @@ header{
     .navigation_container{
         display: flex;
         flex-direction: row;
-        column-gap: 1rem;
+        column-gap: 0.5rem;
         text-decoration: none;
         align-items: center;
         justify-content: center;
         width: 100%;
         padding: 0px;
-        padding-top: 1rem;
+        padding-top: 2rem;
+    }
+    .navigation_container li{
+        white-space: nowrap;
+        font-size: 1rem;
     }
 }

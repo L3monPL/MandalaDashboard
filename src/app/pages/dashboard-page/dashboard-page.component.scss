@@ -1,0 +1,27 @@
+.page{
+    height: 100vh;
+}
+.main_component{
+    width: 100%;
+}
+.navigation_component{
+    background-color: #ececec;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    height: calc(100vh - 50px);
+    font-size: 1.1rem;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+.navigation_component p{
+    margin: 0px;
+    cursor: pointer;
+    padding: 0.7rem 0rem;
+    padding-left: 1rem;
+    border-bottom: 1px solid #c0c0c0;
+    transition: 0.3s;
+}
+.navigation_component p:hover{
+    color: #c5a342;
+    transition: 0.3s;
+}

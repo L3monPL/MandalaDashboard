@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-page',
@@ -8,12 +9,16 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPageComponent {
 
+  constructor( 
+    private router: Router,
+  ){}
+
   loginForm = new FormGroup({
     email: new FormControl ('', [Validators.required, Validators.email]),
     password: new FormControl ('', [Validators.required])
   })
   
   submit(){
-    
+    this.router.navigateByUrl('/dashboard');
   }
 }

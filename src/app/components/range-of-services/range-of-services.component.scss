@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     background-color: #141414;
+    background: radial-gradient(circle, rgba(33,33,33,1) 0%, rgba(14,14,14,1) 100%);
     color: #fff;
     box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 30px 0px;
 }
@@ -59,6 +60,7 @@
     flex-direction: row;
     column-gap: 1rem;
     // width: 100%;
+    flex: 1;
 }
 .reverse_card{
     // flex-direction: row-reverse;
@@ -101,10 +103,39 @@
     font-size: 1rem;
     cursor: pointer;
 }
+.logo_text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+.container_right_text img{
+    // height: 300px;
+    width: 300px;
+    margin-top: 1rem;
+    // animation: pulse 3s infinite linear;
+}
 
 
 
 
+
+@keyframes pulse {
+    0% {
+    transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@media only screen and (max-width: 1300px){
+    .container_right_text img{
+        display: none;
+    }
+}
 @media only screen and (max-width: 1000px){
     .container_page{
         flex-direction: column;

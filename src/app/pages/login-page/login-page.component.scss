@@ -114,3 +114,14 @@ input{
     left: 5px;
     transform: rotateZ(180deg);
 }
+
+
+
+
+@media only screen and (max-width: 1000px){
+    .addition{
+        scale: 1;
+        height: 100px;
+        position: absolute;
+    }
+}

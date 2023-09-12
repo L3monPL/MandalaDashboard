@@ -9,7 +9,7 @@ import { UserDataService } from './services/global/user-data.service';
 
 @NgModule({
   declarations: [
-    AppComponent  
+    AppComponent, 
   ],
   imports: [
     BrowserModule,

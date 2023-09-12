@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RealizationPageComponent } from './realization-page.component';
 import { RouterModule, Routes } from '@angular/router';
 import { RealizationCreateModule } from 'src/app/components/realization-create/realization-create.module';
+import { RealizationListInDashboardModule } from 'src/app/components/realization-list-in-dashboard/realization-list-in-dashboard.module';
 
 const routes: Routes = [
   {
@@ -18,7 +19,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    RealizationCreateModule
+    RealizationCreateModule,
+    RealizationListInDashboardModule
   ],
   exports: [
     RealizationPageComponent

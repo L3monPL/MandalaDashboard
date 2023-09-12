@@ -2,6 +2,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
+export interface Realization{
+  id: number,
+  title: string,
+  description: string,
+  images: Array<any>,
+  created_at: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -31,8 +39,8 @@ export class RestService {
 
   //------------------------------------------------------------------------//
 
-  getRealizationsList(): Observable<HttpResponse<any>> {
-    return this.http.get<any>(this.PATH + `/list`, {
+  getRealizationsList(): Observable<HttpResponse<Array<Realization>>> {
+    return this.http.get<Array<Realization>>(this.PATH + `/realizations`, {
       observe: 'response',
       responseType: 'json'
     })
@@ -40,7 +48,7 @@ export class RestService {
 
   //------------------------------------------------------------------------//
 
-  getRealizationsImage(id: number): Observable<Blob> {
+  getRealizationImage(id: number): Observable<Blob> {
     return this.http.get(this.PATH + `/picture/question/${id}`, { 
       responseType: 'blob' 
     });

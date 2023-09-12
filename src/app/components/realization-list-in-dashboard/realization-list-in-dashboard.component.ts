@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { RealizationService } from 'src/app/services/realization.service';
 import { Realization, RestService } from 'src/app/services/rest.service';
 
 @Component({
@@ -7,20 +8,42 @@ import { Realization, RestService } from 'src/app/services/rest.service';
   templateUrl: './realization-list-in-dashboard.component.html',
   styleUrls: ['./realization-list-in-dashboard.component.scss']
 })
-export class RealizationListInDashboardComponent implements OnInit{
-
-  constructor(
-    private rest: RestService
-  ) { }
-
-  ngOnInit(): void {
-    this.getRealizationsList()
-  }
+export class RealizationListInDashboardComponent implements OnInit, OnDestroy{
 
   loadingRealizationsList = false
   subRealizationsList?: Subscription
   realizationsList?: Array<Realization>
   customErrorRealizationsList?: string
+
+  loadingRealizationImage = false
+  subRealizationImage?: Subscription
+  customErrorRealizationImage?: string
+
+  loadingRealizationDelete = false
+  subRealizationDelete?: Subscription
+  customErrorRealizationDelete?: string
+
+  subRealizationListEmit?: Subscription
+
+  constructor(
+    private rest: RestService,
+    private realizationService: RealizationService
+  ) { }
+
+  ngOnInit(): void {
+    this.getRealizationsList()
+    this.subRealizationsListRefresh()
+  }
+
+  ngOnDestroy(): void {
+    this.subRealizationListEmit?.unsubscribe()
+  }
+
+  subRealizationsListRefresh(){
+    this.subRealizationListEmit = this.realizationService.realizationListEmit.subscribe(res => {
+      this.getRealizationsList()
+    })
+  }
 
   getRealizationsList(){
     this.loadingRealizationsList = true
@@ -28,6 +51,7 @@ export class RealizationListInDashboardComponent implements OnInit{
       next: (response) => {
         if(response.body){
           this.realizationsList = response.body
+          this.getImagesToList(this.realizationsList)
         }
         else{
           this.customErrorRealizationsList = 'Brak obiektu odpowiedzi';
@@ -45,6 +69,64 @@ export class RealizationListInDashboardComponent implements OnInit{
         this.loadingRealizationsList = false;
       }
     })
+  }
+
+  getImagesToList(list: Array<Realization>){
+    for (let index = 0; index < list.length; index++) {
+      // for (let indexImage = 0; indexImage < list[index].images.length; indexImage++) {
+        this.loadingRealizationImage = true
+        // list[index].images[indexImage].id
+        this.subRealizationImage = this.rest.getRealizationImage(list[index].images[0]?.id).subscribe({
+          next: (response) => {
+            if(response){
+              // console.log(response)
+              list[index].images[0].bloob = URL.createObjectURL(response);
+              // this.realizationsList = response.body
+            }
+            else{
+              this.customErrorRealizationImage = 'Brak obiektu odpowiedzi';
+              // this.popupService.errorEmit(this.customErrorRealizationsList)
+            }
+            this.loadingRealizationImage = false
+          },
+          error: (errorResponse) => {
+            this.loadingRealizationImage = false
+            this.customErrorRealizationImage = errorResponse.error.message
+            console.log(this.customErrorRealizationImage);
+            // this.popupService.errorEmit(errorResponse.error.message)
+          },
+          complete: () => {
+            this.loadingRealizationImage = false;
+          }
+        })
+      // }
+    }
+  }
+
+  deleteRealization(id: number){
+    this.loadingRealizationDelete = true
+        // list[index].images[indexImage].id
+        this.subRealizationDelete = this.rest.deleteReazlization(id).subscribe({
+          next: (response) => {
+            if(response){
+              this.getRealizationsList()
+            }
+            else{
+              this.customErrorRealizationDelete = 'Brak obiektu odpowiedzi';
+              // this.popupService.errorEmit(this.customErrorRealizationsList)
+            }
+            this.loadingRealizationDelete = false
+          },
+          error: (errorResponse) => {
+            this.loadingRealizationDelete = false
+            this.customErrorRealizationDelete = errorResponse.error.message
+            console.log(this.customErrorRealizationDelete);
+            // this.popupService.errorEmit(errorResponse.error.message)
+          },
+          complete: () => {
+            this.loadingRealizationDelete = false;
+          }
+        })
   }
 
   

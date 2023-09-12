@@ -3,6 +3,17 @@
 </div>
 <div class="page">
     <div *ngFor="let realization of realizationsList; let i = index" class="item_realization">
-        {{realization.title}}
+        <div class="title_realization">
+            {{i + 1}}.
+            {{realization.title}}
+        </div>
+        <div class="images_container">
+            <div *ngIf="realization.images[0]?.bloob" class="images">
+                <img [src]="realization.images[0].bloob" alt="">
+            </div>
+        </div>
+        <div (click)="deleteRealization(realization.id)" class="delete_container">
+            X
+        </div>
     </div>
 </div>

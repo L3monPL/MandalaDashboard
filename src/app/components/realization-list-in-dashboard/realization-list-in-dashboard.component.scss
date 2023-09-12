@@ -15,4 +15,42 @@
     flex-direction: column;
     row-gap: 0.5rem;
     height: calc(100vh - 147px);
+    overflow-y: scroll;
+}
+.item_realization{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px #000;
+    border-bottom-style: dashed;
+    position: relative;
+}
+.delete_container{
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+}
+.title_realization{
+    display: flex;
+    flex-direction: row;
+    font-size: 1.2rem;
+    width: 50%;
+}
+.images_container{
+    display: flex;
+    flex-direction: row;
+    column-gap: 0.5rem;
+    width: 50%;
+}
+.images{
+    display: flex;
+    justify-content: end;
+}
+.images img{
+    height: 140px;
+    width: 50%;
+    object-fit: contain;
+    // background-repeat: no-repeat;
 }

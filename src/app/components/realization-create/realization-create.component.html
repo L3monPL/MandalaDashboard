@@ -30,8 +30,8 @@
               </div>
             </div> -->
             <div *ngIf="selectedImages.length > 0" class="list_of_upload_image">
-              <div class="item_file" *ngFor="let image of selectedImages" [class.selected-item]="image === selectedFile"
-              (click)="selectFile(image)">
+              <div class="item_file" *ngFor="let image of selectedImages; let i = index" [class.selected-item]="image === selectedFile"
+              (click)="selectFile(image, i)">
                 <img [src]="image" alt="Selected Image">
               </div>
             </div>

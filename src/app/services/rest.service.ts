@@ -49,7 +49,7 @@ export class RestService {
   //------------------------------------------------------------------------//
 
   getRealizationImage(id: number): Observable<Blob> {
-    return this.http.get(this.PATH + `/picture/question/${id}`, { 
+    return this.http.get(this.PATH + `/realizations/image/${id}`, { 
       responseType: 'blob' 
     });
   }
@@ -79,12 +79,17 @@ export class RestService {
     title: string,
     description: string
   ): Observable<HttpResponse<any>> {
-    return this.http.post<any>(this.PATH, {
+    // let token = localStorage.getItem('auth_app_token')
+    // const headers = new HttpHeaders({
+    //   'Authorization': `${token}`
+    // });
+    return this.http.post<any>(this.PATH + `/realizations/private/create`, {
       title: title,
       description: description
     }, {
       observe: 'response',
       responseType: 'json',
+      // headers: headers
     })
   }
 
@@ -103,5 +108,18 @@ export class RestService {
 
   //------------------------------------------------------------------------//
 
-  
+  //------------------------------------------------------------------------//
+  // DELETE DELETE DELETE DELETE DELETE DELETE DELETE DELETE DELETE DELETE  //
+  //------------------------------------------------------------------------//
+
+  deleteReazlization(
+    id: number
+  ): Observable<HttpResponse<any>> {
+    return this.http.delete<any>(this.PATH + `/realizations/private/${id}`, {
+      observe: 'response',
+      responseType: 'json',
+    })
+  }
+
+  //------------------------------------------------------------------------//
 }

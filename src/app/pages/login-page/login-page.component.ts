@@ -38,6 +38,7 @@ export class LoginPageComponent implements OnInit{
   // }
 
   checkUserIsLogin(){
+    this.loadingUserIsLogin = true
     this.subUserIsLogin = this.rest.getUserAuth().subscribe({
       next: (response) => {
         if(response.body){

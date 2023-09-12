@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/comm
 })
 export class RestService {
 
-  private PATH = '/api/v1'
+  private PATH = '/api'
 
   constructor(
     private http: HttpClient
@@ -36,6 +36,21 @@ export class RestService {
 
   //------------------------------------------------------------------------//
   // POST POST POST POST POST POST POST POST POST POST POST POST POST POST  //
+  //------------------------------------------------------------------------//
+
+  postLogin(
+    email: string,
+    password: string
+  ): Observable<HttpResponse<any>> {
+    return this.http.post<any>(this.PATH + `/users/login`, {
+      email: email,
+      password: password
+    }, {
+      observe: 'response',
+      responseType: 'json',
+    })
+  }
+
   //------------------------------------------------------------------------//
 
   postRealization(

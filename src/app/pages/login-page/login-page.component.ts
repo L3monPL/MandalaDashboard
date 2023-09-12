@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { RestService } from 'src/app/services/rest.service';
 
 @Component({
   selector: 'app-login-page',
@@ -9,8 +11,13 @@ import { Router } from '@angular/router';
 })
 export class LoginPageComponent {
 
+  loadingLogin = false
+  subLogin?: Subscription
+  customErrorLogin?: string
+
   constructor( 
     private router: Router,
+    private rest: RestService
   ){}
 
   loginForm = new FormGroup({
@@ -18,9 +25,9 @@ export class LoginPageComponent {
     password: new FormControl ('', [Validators.required])
   })
   
-  submit(){
-    this.router.navigateByUrl('/dashboard');
-  }
+  // submit(){
+  //   this.router.navigateByUrl('/dashboard');
+  // }
 
   // checkUserIsLogin(){
   //   this.subUserIsLogin = this.userRest.getUser().subscribe({
@@ -52,38 +59,38 @@ export class LoginPageComponent {
   //   })
   // }
 
-  // submit(){
-  //   if (this.loginForm.valid) {
-  //     this.loadingLogin = true
-  //     let loginValue = this.loginForm.get('email')!.value;
-  //     let passwordValue = this.loginForm.get('password')!.value;
+  submit(){
+    if (this.loginForm.valid) {
+      this.loadingLogin = true
+      let loginValue = this.loginForm.get('email')!.value;
+      let passwordValue = this.loginForm.get('password')!.value;
 
-  //     console.log('test')
+      console.log('test')
 
-  //     this.subLogin = this.authRest.postLogin(loginValue!, passwordValue!).subscribe({
-  //       next: (response) => {
-  //         if(response.body){
-  //           this.router.navigateByUrl('/home');
-  //           localStorage.setItem('auth_app_token_vox', response.body.token)
-  //         }
-  //         else{
-  //           this.customErrorLogin = 'Brak obiektu odpowiedzi';
-  //           this.popupService.errorEmit(this.customErrorLogin)
-  //         }
-  //       },
-  //       error: (errorResponse) => {
-  //         this.loadingLogin = false
-  //         // this.customErrorLogin = errorResponse.error.message
-  //         // console.log(this.customError);
-  //         this.popupService.errorEmit(errorResponse.error.message)
-  //       },
-  //       complete: () => {
-  //         this.loadingLogin = false;
-  //       }
-  //     })
-  //   }
-  //   else{
-  //     this.popupService.errorEmit('Wypełnij formularz logowania!')
-  //   }
-  // }
+      this.subLogin = this.rest.postLogin(loginValue!, passwordValue!).subscribe({
+        next: (response) => {
+          if(response.body){
+            localStorage.setItem('auth_app_token', response.body.token)
+            this.router.navigateByUrl('/dashboard')
+          }
+          else{
+            this.customErrorLogin = 'Brak obiektu odpowiedzi';
+            // this.popupService.errorEmit(this.customErrorLogin)
+          }
+        },
+        error: (errorResponse) => {
+          this.loadingLogin = false
+          this.customErrorLogin = errorResponse.error.message
+          console.log(this.customErrorLogin);
+          // this.popupService.errorEmit(errorResponse.error.message)
+        },
+        complete: () => {
+          this.loadingLogin = false;
+        }
+      })
+    }
+    else{
+      // this.popupService.errorEmit('Wypełnij formularz logowania!')
+    }
+  }
 }

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -9,16 +9,24 @@ import { RestService } from 'src/app/services/rest.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss']
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit{
 
   loadingLogin = false
   subLogin?: Subscription
   customErrorLogin?: string
 
+  loadingUserIsLogin = false
+  subUserIsLogin?: Subscription
+  customErrorUserIsLogin?: string
+
   constructor( 
     private router: Router,
     private rest: RestService
   ){}
+
+  ngOnInit(): void {
+    this.checkUserIsLogin()
+  }
 
   loginForm = new FormGroup({
     email: new FormControl ('', [Validators.required, Validators.email]),
@@ -29,35 +37,36 @@ export class LoginPageComponent {
   //   this.router.navigateByUrl('/dashboard');
   // }
 
-  // checkUserIsLogin(){
-  //   this.subUserIsLogin = this.userRest.getUser().subscribe({
-  //     next: (response) => {
-  //       if(response.body){
-  //         this.router.navigateByUrl('/home');
-  //       }
-  //       else{
-  //         this.customErrorUserIsLogin = 'Brak obiektu odpowiedzi';
-  //       }
-  //     },
-  //     error: (errorResponse) => {
-  //       switch (errorResponse.status) {
-  //         case 400:
-  //         case 401:
-  //         case 403:
-  //           this.loadingUserIsLogin = false;
-  //           break;
+  checkUserIsLogin(){
+    this.subUserIsLogin = this.rest.getUserAuth().subscribe({
+      next: (response) => {
+        if(response.body){
+          this.router.navigateByUrl('/dashboard');
+        }
+        else{
+          this.customErrorUserIsLogin = 'Brak obiektu odpowiedzi';
+        }
+      },
+      error: (errorResponse) => {
+        switch (errorResponse.status) {
+          case 400:
+          case 401:
+          case 403:
+            this.loadingUserIsLogin = false;
+            break;
           
-  //         default:
-  //           this.customErrorUserIsLogin = 'Błąd serwera'
-  //           break;
-  //       }
-  //       // console.log(this.customError);
-  //     },
-  //     complete: () => {
-  //       this.loadingUserIsLogin = false;
-  //     }
-  //   })
-  // }
+          default:
+            this.customErrorUserIsLogin = 'Błąd serwera'
+            break;
+        }
+        // this.router.navigateByUrl('/')
+        // console.log(this.customError);
+      },
+      complete: () => {
+        this.loadingUserIsLogin = false;
+      }
+    })
+  }
 
   submit(){
     if (this.loginForm.valid) {
@@ -70,7 +79,7 @@ export class LoginPageComponent {
       this.subLogin = this.rest.postLogin(loginValue!, passwordValue!).subscribe({
         next: (response) => {
           if(response.body){
-            localStorage.setItem('auth_app_token', response.body.token)
+            localStorage.setItem('auth_app_token', response.body)
             this.router.navigateByUrl('/dashboard')
           }
           else{

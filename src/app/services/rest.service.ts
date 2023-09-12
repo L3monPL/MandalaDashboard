@@ -17,6 +17,20 @@ export class RestService {
   // GET GET GET GET GET GET GET GET GET GET GET GET GET GET GET GET GET GET//
   //------------------------------------------------------------------------//
 
+  getUserAuth(): Observable<HttpResponse<any>> {
+    let token = localStorage.getItem('auth_app_token')
+    const headers = new HttpHeaders({
+      'Authorization': `${token}`
+    });
+    return this.http.get<any>(this.PATH + `/users/auth`, {
+      observe: 'response',
+      responseType: 'json',
+      headers: headers
+    })
+  }
+
+  //------------------------------------------------------------------------//
+
   getRealizationsList(): Observable<HttpResponse<any>> {
     return this.http.get<any>(this.PATH + `/list`, {
       observe: 'response',

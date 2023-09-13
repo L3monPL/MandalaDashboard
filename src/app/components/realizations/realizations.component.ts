@@ -60,29 +60,35 @@ export class RealizationsComponent implements OnInit{
       // for (let indexImage = 0; indexImage < list[index].images.length; indexImage++) {
         this.loadingRealizationImage = true
         // list[index].images[indexImage].id
-        this.subRealizationImage = this.rest.getRealizationImage(list[index].images[0]?.id).subscribe({
-          next: (response) => {
-            if(response){
-              // console.log(response)
-              list[index].images[0].bloob = URL.createObjectURL(response);
-              // this.realizationsList = response.body
+        if (list[index].images.length == 0) {
+          list.splice(index, 1)
+        }
+        if (list[index].images.length != 0) {
+          this.subRealizationImage = this.rest.getRealizationImage(list[index].images[0]?.id).subscribe({
+            next: (response) => {
+              if(response){
+                // console.log(response)
+                list[index].images[0].bloob = URL.createObjectURL(response);
+                // this.realizationsList = response.body
+              }
+              else{
+                this.customErrorRealizationImage = 'Brak obiektu odpowiedzi';
+                // this.popupService.errorEmit(this.customErrorRealizationsList)
+              }
+              this.loadingRealizationImage = false
+            },
+            error: (errorResponse) => {
+              this.loadingRealizationImage = false
+              this.customErrorRealizationImage = errorResponse.error.message
+              console.log(this.customErrorRealizationImage);
+              // this.popupService.errorEmit(errorResponse.error.message)
+            },
+            complete: () => {
+              this.loadingRealizationImage = false;
             }
-            else{
-              this.customErrorRealizationImage = 'Brak obiektu odpowiedzi';
-              // this.popupService.errorEmit(this.customErrorRealizationsList)
-            }
-            this.loadingRealizationImage = false
-          },
-          error: (errorResponse) => {
-            this.loadingRealizationImage = false
-            this.customErrorRealizationImage = errorResponse.error.message
-            console.log(this.customErrorRealizationImage);
-            // this.popupService.errorEmit(errorResponse.error.message)
-          },
-          complete: () => {
-            this.loadingRealizationImage = false;
-          }
-        })
+          })  
+        }
+        
       // }
     }
   }

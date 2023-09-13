@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { PopupManagementService } from 'src/app/services/popup-management.service';
 import { RealizationService } from 'src/app/services/realization.service';
 import { RestService } from 'src/app/services/rest.service';
 
@@ -20,7 +21,8 @@ export class RealizationCreateComponent implements OnInit{
 
   constructor(
     public realizationManagement: RealizationService,
-    public rest: RestService
+    public rest: RestService,
+    private popupService: PopupManagementService
   ) { }
 
   ngOnInit(): void {
@@ -91,7 +93,7 @@ export class RealizationCreateComponent implements OnInit{
   }
 
   submit(){
-    if (this.realizationManagement.objectRealizationCreate.title && this.realizationManagement.objectRealizationCreate.description) {
+    if (this.realizationManagement.objectRealizationCreate.title && this.realizationManagement.objectRealizationCreate.description && this.realizationManagement.objectRealizationCreate.imagesArray.length) {
       this.loadingRealizationCreate = true
       this.subRealizationCreate = this.rest.postRealization(this.realizationManagement.objectRealizationCreate.title, this.realizationManagement.objectRealizationCreate.description).subscribe({
         next: (response) => {
@@ -101,16 +103,27 @@ export class RealizationCreateComponent implements OnInit{
           }
           else{
             this.customErrorRealizationCreate = 'Brak obiektu odpowiedzi';
+            this.popupService.errorEmit(this.customErrorRealizationCreate!)
           }
         },
         error: (errorResponse) => {
               this.loadingRealizationCreate = false;
               this.customErrorRealizationCreate = errorResponse.message
+              this.popupService.errorEmit(this.customErrorRealizationCreate!)
         },
         complete: () => {
           this.loadingRealizationCreate = false;
         }
       })
+    }
+    if (!this.realizationManagement.objectRealizationCreate.title) {
+      this.popupService.errorEmit('Nie podano tytułu realizacji')
+    }
+    if (!this.realizationManagement.objectRealizationCreate.description) {
+      this.popupService.errorEmit('Nie podano opisu realizacji')
+    }
+    if (!this.realizationManagement.objectRealizationCreate.imagesArray.length) {
+      this.popupService.errorEmit('Nie dodano zdjęć')
     }
     // console.log(this.fileToUploads)
     // console.log(this.selectedImages)
@@ -163,15 +176,18 @@ export class RealizationCreateComponent implements OnInit{
             this.realizationManagement.getRealizationList()
           }
           if (this.realizationManagement.objectRealizationCreate.imagesArray[index]?.position == maxPosition) {
+            this.popupService.succesEmit("Utworzono nową realizację")
             this.clearForm()
           }
           else{
             this.customErrorRealizationImage  = 'Brak obiektu odpowiedzi';
+            this.popupService.errorEmit(this.customErrorRealizationImage)
           }
         },
         error: (errorResponse) => {
               this.loadingRealizationImage = false;
               this.customErrorRealizationImage = errorResponse.message
+              this.popupService.errorEmit(this.customErrorRealizationImage!)
         },
         complete: () => {
           this.loadingRealizationImage = false;

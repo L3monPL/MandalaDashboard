@@ -6,15 +6,21 @@ import { RealizationCreateComponent } from './components/realization-create/real
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserDataService } from './services/global/user-data.service';
+import { PopupDoneModule } from './components/popup-done/popup-done.module';
+import { PopupErrorModule } from './components/popup-error/popup-error.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
-    AppComponent, 
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    PopupErrorModule,
+    PopupDoneModule,
+    BrowserAnimationsModule
   ],
   providers: [
     {

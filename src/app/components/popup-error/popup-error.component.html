@@ -1,0 +1,24 @@
+<div class="container_list">
+    <div [@animInImage] *ngFor="let popup of popupList; let i = index" class="card">
+        <div class="left">
+            <!-- <mat-icon color="icon_warning" fontIcon="warning"></mat-icon> -->
+            <div class="message">
+                <div class="title">
+                    BŁĄD
+                </div>
+                <!-- <div class="error">
+                    {{popup.message | slice:0:80}}
+                </div> -->
+                <div *ngIf="popup.message.length <= 120" class="error">
+                    {{popup.message}}
+                </div> 
+                <div *ngIf="popup.message.length > 120" class="error">
+                    {{popup.message | slice:0:120}} ...
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <!-- <mat-icon (click)="close(i)" color="icon_close" fontIcon="close"></mat-icon> -->
+        </div>
+    </div>
+</div>

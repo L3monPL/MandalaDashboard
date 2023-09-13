@@ -11,7 +11,7 @@ export class NavigationComponent {
   @HostBinding('class.sticky_nav') newNav?: boolean
 
   @HostListener('window:scroll') onScroll(){
-    console.log(window.scrollY)
+    // console.log(window.scrollY)
     if (window.scrollY > 39) {
       this.newNav = true
     }

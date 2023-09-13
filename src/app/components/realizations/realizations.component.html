@@ -4,16 +4,20 @@
         <img class="addition" src="../../../assets//additions/addition03.png" alt="realizacje oferty zarządzanie nieruchomościami">
     </div>
     <div class="items_container">
-        <div class="item">
+        <div *ngFor="let image of realizationsList; let i = index" class="item" [ngStyle]="{'background-image': 'url(' + image.images[0].bloob + ')'}">
             <!-- <img src="../../../assets/realizations/ramka-na-sciane-ze-skandynawskim-wnetrzem-domu.jpg" alt=""> -->
         </div>
-        <div class="item">
+        <div *ngIf="realizationsList?.length! <= 3" class="item">
             
         </div>
-        <div class="item">
+        <div *ngIf="realizationsList?.length! <= 2" class="item">
             
         </div>
-        <div class="item">
+        <div *ngIf="realizationsList?.length! <= 1" class="item">
+            
+        </div>
+
+        <div *ngIf="realizationsList?.length! <= 0" class="item">
             
         </div>
     </div>

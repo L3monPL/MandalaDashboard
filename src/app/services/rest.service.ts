@@ -95,14 +95,15 @@ export class RestService {
 
   //------------------------------------------------------------------------//
 
-  postRealizationImage(id: number, image: Blob): Observable<HttpResponse<any>> {
+  postRealizationImage(id: number, position: number, image: File): Observable<HttpResponse<any>> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/octet-stream'
     });
-    return this.http.put<any>(this.PATH + `/picture/question/${id}/update`, 
+    return this.http.post<any>(this.PATH + `/realizations/private/${id}/image/${position}`, 
     image
     , {
-      headers
+      observe: 'response',
+      responseType: 'json'
     })
   }
 

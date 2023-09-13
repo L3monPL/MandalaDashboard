@@ -14,6 +14,10 @@ export class RealizationCreateComponent implements OnInit{
   subRealizationCreate?: Subscription
   customErrorRealizationCreate?: string
 
+  loadingRealizationImage = false
+  subRealizationImage?: Subscription
+  customErrorRealizationImage?: string
+
   constructor(
     public realizationManagement: RealizationService,
     public rest: RestService
@@ -87,27 +91,27 @@ export class RealizationCreateComponent implements OnInit{
   }
 
   submit(){
-    // if (this.realizationManagement.objectRealizationCreate.title && this.realizationManagement.objectRealizationCreate.description) {
-    //   this.loadingRealizationCreate = true
-    //   this.subRealizationCreate = this.rest.postRealization(this.realizationManagement.objectRealizationCreate.title, this.realizationManagement.objectRealizationCreate.description).subscribe({
-    //     next: (response) => {
-    //       if(response.body){
-    //         console.log(response.body)
-    //         this.postRealizationImages(response.body.message)
-    //       }
-    //       else{
-    //         this.customErrorRealizationCreate = 'Brak obiektu odpowiedzi';
-    //       }
-    //     },
-    //     error: (errorResponse) => {
-    //           this.loadingRealizationCreate = false;
-    //           this.customErrorRealizationCreate = errorResponse.message
-    //     },
-    //     complete: () => {
-    //       this.loadingRealizationCreate = false;
-    //     }
-    //   })
-    // }
+    if (this.realizationManagement.objectRealizationCreate.title && this.realizationManagement.objectRealizationCreate.description) {
+      this.loadingRealizationCreate = true
+      this.subRealizationCreate = this.rest.postRealization(this.realizationManagement.objectRealizationCreate.title, this.realizationManagement.objectRealizationCreate.description).subscribe({
+        next: (response) => {
+          if(response.body){
+            console.log(response.body)
+            this.postRealizationImages(response.body.message)
+          }
+          else{
+            this.customErrorRealizationCreate = 'Brak obiektu odpowiedzi';
+          }
+        },
+        error: (errorResponse) => {
+              this.loadingRealizationCreate = false;
+              this.customErrorRealizationCreate = errorResponse.message
+        },
+        complete: () => {
+          this.loadingRealizationCreate = false;
+        }
+      })
+    }
     console.log(this.fileToUploads)
     console.log(this.selectedImages)
     console.log(this.realizationManagement.indexFirstImageSelected)
@@ -115,11 +119,32 @@ export class RealizationCreateComponent implements OnInit{
   }
 
   postRealizationImages(id: number){
-    console.log(id)
-    this.realizationManagement.getRealizationList()
+    // console.log(id)
+    // this.realizationManagement.getRealizationList()
     for (let index = 0; index < this.realizationManagement.objectRealizationCreate.imagesArray.length; index++) {
       // this.realizationManagement.objectRealizationCreate.imagesArray[index]
       //if position 0 getListRefresh
+      this.loadingRealizationImage = true
+      this.subRealizationImage  = this.rest.postRealizationImage(id, this.realizationManagement.objectRealizationCreate.imagesArray[index].position, this.realizationManagement.objectRealizationCreate.imagesArray[index].bloob).subscribe({
+        next: (response) => {
+          if (this.realizationManagement.objectRealizationCreate.imagesArray[index].position == 0) {
+            this.realizationManagement.getRealizationList()
+          }
+          if(response.body){
+            console.log(response.body)
+          }
+          else{
+            this.customErrorRealizationImage  = 'Brak obiektu odpowiedzi';
+          }
+        },
+        error: (errorResponse) => {
+              this.loadingRealizationImage = false;
+              this.customErrorRealizationImage = errorResponse.message
+        },
+        complete: () => {
+          this.loadingRealizationImage = false;
+        }
+      })
     }
   }
 

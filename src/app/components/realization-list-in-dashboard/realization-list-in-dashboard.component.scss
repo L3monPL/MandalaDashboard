@@ -25,6 +25,7 @@
     border-bottom: 1px #000;
     border-bottom-style: dashed;
     position: relative;
+    padding-bottom: 7px;
 }
 .delete_container{
     position: absolute;
@@ -43,10 +44,12 @@
     flex-direction: row;
     column-gap: 0.5rem;
     width: 50%;
+    justify-content: center;
 }
 .images{
     display: flex;
     justify-content: end;
+    width: 100%;
 }
 .images img{
     height: 140px;

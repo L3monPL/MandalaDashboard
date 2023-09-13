@@ -51,6 +51,7 @@ export class RealizationListInDashboardComponent implements OnInit, OnDestroy{
       next: (response) => {
         if(response.body){
           this.realizationsList = response.body
+          this.realizationsList.sort((a, b) => b.id - a.id)
           this.getImagesToList(this.realizationsList)
         }
         else{

@@ -15,7 +15,7 @@ export class RealizationService {
     imagesArray: new Array(),
   }
 
-  indexFirstImageSelected?: number
+  indexFirstImageSelected?: number|null
 
   getRealizationList(){
     this.realizationListEmit.emit()

@@ -96,7 +96,7 @@ export class RealizationCreateComponent implements OnInit{
       this.subRealizationCreate = this.rest.postRealization(this.realizationManagement.objectRealizationCreate.title, this.realizationManagement.objectRealizationCreate.description).subscribe({
         next: (response) => {
           if(response.body){
-            console.log(response.body)
+            // console.log(response.body)
             this.postRealizationImages(response.body.message)
           }
           else{
@@ -112,26 +112,58 @@ export class RealizationCreateComponent implements OnInit{
         }
       })
     }
-    console.log(this.fileToUploads)
-    console.log(this.selectedImages)
-    console.log(this.realizationManagement.indexFirstImageSelected)
-    console.log(this.realizationManagement.objectRealizationCreate.imagesArray)
+    // console.log(this.fileToUploads)
+    // console.log(this.selectedImages)
+    // console.log(this.realizationManagement.indexFirstImageSelected)
+    // console.log(this.realizationManagement.objectRealizationCreate.imagesArray)
   }
 
   postRealizationImages(id: number){
-    // console.log(id)
-    // this.realizationManagement.getRealizationList()
+
+    let maxPosition = -1
     for (let index = 0; index < this.realizationManagement.objectRealizationCreate.imagesArray.length; index++) {
-      // this.realizationManagement.objectRealizationCreate.imagesArray[index]
-      //if position 0 getListRefresh
+      if (this.realizationManagement.objectRealizationCreate.imagesArray[index].position >= maxPosition) {
+        maxPosition = this.realizationManagement.objectRealizationCreate.imagesArray[index].position
+      }
+      // for (let index = 0; index < this.realizationManagement.objectRealizationCreate.imagesArray.length; index++) {
+      //   if (this.realizationManagement.objectRealizationCreate.imagesArray[index].position != 0) {
+      //     this.realizationManagement.objectRealizationCreate.imagesArray[index].position = this.realizationManagement.objectRealizationCreate.imagesArray[index].position + 1 
+      //   }
+      // }
+    }
+    // for (let index = 0; index < this.realizationManagement.objectRealizationCreate.imagesArray.length; index++) {
+      if (this.realizationManagement.indexFirstImageSelected) {
+        this.realizationManagement.objectRealizationCreate.imagesArray[this.realizationManagement.indexFirstImageSelected]
+
+        console.log(this.realizationManagement.objectRealizationCreate.imagesArray[this.realizationManagement.indexFirstImageSelected])
+        
+        const elementIndex = this.realizationManagement.objectRealizationCreate.imagesArray.indexOf(this.realizationManagement.objectRealizationCreate.imagesArray[this.realizationManagement.indexFirstImageSelected])
+        if (elementIndex !== -1) {
+          const removedElement = this.realizationManagement.objectRealizationCreate.imagesArray.splice(elementIndex, 1)[0]; // Splice returns an array, so we get the first element
+          this.realizationManagement.objectRealizationCreate.imagesArray.unshift(removedElement);
+        }
+      }
+    // }
+
+    for (let index = 0; index < this.realizationManagement.objectRealizationCreate.imagesArray.length; index++) {
+      this.realizationManagement.objectRealizationCreate.imagesArray[index].position = index
+    }
+    console.log(this.realizationManagement.objectRealizationCreate.imagesArray)
+
+
+
+
+
+    
+    for (let index = 0; index < this.realizationManagement.objectRealizationCreate.imagesArray.length; index++) {
       this.loadingRealizationImage = true
       this.subRealizationImage  = this.rest.postRealizationImage(id, this.realizationManagement.objectRealizationCreate.imagesArray[index].position, this.realizationManagement.objectRealizationCreate.imagesArray[index].bloob).subscribe({
         next: (response) => {
-          if (this.realizationManagement.objectRealizationCreate.imagesArray[index].position == 0) {
+          if (this.realizationManagement.objectRealizationCreate.imagesArray[index]?.position == 0) {
             this.realizationManagement.getRealizationList()
           }
-          if(response.body){
-            console.log(response.body)
+          if (this.realizationManagement.objectRealizationCreate.imagesArray[index]?.position == maxPosition) {
+            this.clearForm()
           }
           else{
             this.customErrorRealizationImage  = 'Brak obiektu odpowiedzi';
@@ -146,6 +178,16 @@ export class RealizationCreateComponent implements OnInit{
         }
       })
     }
+  }
+
+  clearForm(){
+    this.realizationManagement.objectRealizationCreate.title = ''
+    this.realizationManagement.objectRealizationCreate.description = ''
+    this.realizationManagement.objectRealizationCreate.imagesArray = []
+    this.realizationManagement.indexFirstImageSelected = null
+    this.fileToUploads = []
+    this.selectedFile = null
+    this.selectedImages = []
   }
 
 

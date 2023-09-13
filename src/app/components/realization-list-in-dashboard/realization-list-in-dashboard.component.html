@@ -4,7 +4,7 @@
 <div class="page">
     <div *ngFor="let realization of realizationsList; let i = index" class="item_realization">
         <div class="title_realization">
-            {{i + 1}}.
+            {{realization.id}}.
             {{realization.title}}
         </div>
         <div class="images_container">

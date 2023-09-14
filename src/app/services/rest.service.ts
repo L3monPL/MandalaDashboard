@@ -128,6 +128,21 @@ export class RestService {
 
   //------------------------------------------------------------------------//
 
+  postContactEmail(
+    email: string,
+    text: string
+  ): Observable<HttpResponse<any>> {
+    return this.http.post<any>(this.PATH + `/message`, {
+      email: email,
+      text: text
+    }, {
+      observe: 'response',
+      responseType: 'json'
+    })
+  }
+
+  //------------------------------------------------------------------------//
+
   //------------------------------------------------------------------------//
   // DELETE DELETE DELETE DELETE DELETE DELETE DELETE DELETE DELETE DELETE  //
   //------------------------------------------------------------------------//

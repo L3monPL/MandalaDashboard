@@ -70,6 +70,9 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+    font-size: 0.9rem;
+    font-family: 'Righteous';
+    letter-spacing: normal;
 }
 .title_item h2{
     margin-top: 0px;
@@ -87,14 +90,15 @@
 }
 .container_right_text{
     width: 50%;
-    // width: calc(50% - 2rem);
-    font-size: 1.4rem;
+    // font-size: 1.4rem;
+    font-size: 1.2rem;
     display: flex;
     flex-direction: column;
-    // align-items: center;
     text-align: justify;
     margin-left: 2rem;
     margin-top: 0px;
+    font-family: 'Righteous';
+    letter-spacing: normal;
 }
 .btn_option{
     margin-top: 1rem;

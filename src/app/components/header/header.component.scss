@@ -57,6 +57,9 @@ main{
     color: #fff;
     padding: 0.7rem 2rem;
     cursor: pointer;
+    font-size: 0.7rem;
+    font-family: 'Righteous';
+    letter-spacing: normal;
 }
 .border_line{
     border-bottom: 4px solid #fff;
@@ -104,6 +107,9 @@ main{
     display: flex;
     flex-direction: row;
     align-items: center;
+    // font-size: 1rem;
+    font-family: 'Righteous';
+    letter-spacing: normal;
 }
 .typing-element{
     margin-left: 5px;

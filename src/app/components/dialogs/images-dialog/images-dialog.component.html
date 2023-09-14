@@ -6,8 +6,8 @@
         <h2>{{this.data?.title}}</h2>
         <p>{{this.data?.description}}</p>
         <div class="images_list_component">
-            <div (click)="selectImage(i)" *ngFor="let image of this.data?.images; let i = index" class="image">
-                <img [src]="image?.bloob" alt="">
+            <div (click)="selectImage(i)" *ngFor="let image of this.data?.images; let i = index" [ngClass]="{'selected_item': this.indexSelectImage === i}" class="image">
+                <img [src]="image?.bloob" [ngClass]="{'selected_img': this.indexSelectImage === i}" alt="Realizacja, zdjęcia">
                 <!-- {{image.id}} -->
             </div>
         </div>

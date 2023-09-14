@@ -4,26 +4,26 @@
         <img class="addition" src="../../../assets//additions/addition03.png" alt="realizacje oferty zarządzanie nieruchomościami">
     </div>
     <div class="items_container">
-        <div *ngFor="let image of realizationsList!.list; let i = index" class="item" [ngStyle]="{'background-image': 'url(' + image.images[0]?.bloob! + ')'}">
+        <div *ngFor="let image of realizationsList?.list; let i = index" class="item" [ngStyle]="{'background-image': 'url(' + image.images[0]?.bloob! + ')'}">
             <!-- <img src="../../../assets/realizations/ramka-na-sciane-ze-skandynawskim-wnetrzem-domu.jpg" alt=""> -->
         </div>
-        <div *ngIf="realizationsList!.list.length! <= 3" class="item">
+        <div *ngIf="realizationsList?.list!.length! <= 3" class="item">
             
         </div>
-        <div *ngIf="realizationsList!.list.length! <= 2" class="item">
+        <div *ngIf="realizationsList?.list!.length! <= 2" class="item">
             
         </div>
-        <div *ngIf="realizationsList!.list.length! <= 1" class="item">
+        <div *ngIf="realizationsList?.list!.length! <= 1" class="item">
             
         </div>
 
-        <div *ngIf="realizationsList!.list.length! <= 0" class="item">
+        <div *ngIf="realizationsList?.list!.length! <= 0" class="item">
             
         </div>
     </div>
     <div class="btn_container">
-        <img src="../../../assets/icons/arrow-prev-small-svgrepo-com.svg" alt="">
-        1<div class="txt_no_font">/</div>1
-        <img src="../../../assets/icons/arrow-next-small-svgrepo-com.svg" alt="">
+        <img (click)="changePage('back')" src="../../../assets/icons/arrow-prev-small-svgrepo-com.svg" alt="">
+        {{this.page}}<div class="txt_no_font">/</div>{{this.maxPages}}
+        <img (click)="changePage('next')" src="../../../assets/icons/arrow-next-small-svgrepo-com.svg" alt="">
     </div>
 </div>

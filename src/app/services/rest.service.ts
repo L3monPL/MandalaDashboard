@@ -44,10 +44,15 @@ export class RestService {
 
   //------------------------------------------------------------------------//
 
-  getRealizationsListPaginator(): Observable<HttpResponse<RealizationListPaginator>> {
+  getRealizationsListPaginator(page?: number): Observable<HttpResponse<RealizationListPaginator>> {
+    let param = new HttpParams();
+    if (page) {
+      param = param.append('page', page)
+    }
     return this.http.get<RealizationListPaginator>(this.PATH + `/realizations/paginator`, {
       observe: 'response',
-      responseType: 'json'
+      responseType: 'json',
+      params: param
     })
   }
 

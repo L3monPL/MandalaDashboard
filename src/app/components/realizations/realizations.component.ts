@@ -19,22 +19,28 @@ export class RealizationsComponent implements OnInit{
   subRealizationImage?: Subscription
   customErrorRealizationImage?: string
 
+  page?: number = 1
+  limit?: number = 4
+  maxPages?: number = 1
+
   constructor( 
     private rest: RestService,
     private realizationService: RealizationService
   ) { }
 
   ngOnInit(): void {
-    this.getRealizationsList()
+    this.getRealizationsList(1)
   }
 
-  getRealizationsList(){
+  getRealizationsList(page?: number){
     this.loadingRealizationsList = true
-    this.subRealizationsList = this.rest.getRealizationsListPaginator().subscribe({
+    this.subRealizationsList = this.rest.getRealizationsListPaginator(page).subscribe({
       next: (response) => {
         if(response.body){
           this.realizationsList = response.body
-          this.realizationsList.list.sort((a, b) => b.id - a.id)
+          console.log(this.realizationsList)
+          this.maxPage(this.realizationsList.listCount)
+          // this.realizationsList.list.sort((a, b) => b.id - a.id)
           this.getImagesToList(this.realizationsList.list)
         }
         else{
@@ -91,6 +97,24 @@ export class RealizationsComponent implements OnInit{
         
       // }
     }
+  }
+
+  maxPage(number: number){
+    this.maxPages = Math.ceil(number / this.limit!)
+  }
+
+  changePage(typ: string){
+    if (typ == 'next' && (this.maxPages! > this.page!)) {
+      this.page = this.page! + 1
+      this.getRealizationsList(this.page)
+    }
+    if (typ == 'back') {
+      if (this.page! > 1) {
+        this.page = this.page! - 1
+        this.getRealizationsList(this.page)
+      }
+    }
+    // this.getRealizationsList(this.page)
   }
 
 

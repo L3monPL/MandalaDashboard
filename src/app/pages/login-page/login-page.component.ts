@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PopupManagementService } from 'src/app/services/popup-management.service';
 import { RestService } from 'src/app/services/rest.service';
 
 @Component({
@@ -21,7 +22,8 @@ export class LoginPageComponent implements OnInit{
 
   constructor( 
     private router: Router,
-    private rest: RestService
+    private rest: RestService,
+    private popupService: PopupManagementService
   ){}
 
   ngOnInit(): void {
@@ -92,7 +94,7 @@ export class LoginPageComponent implements OnInit{
           this.loadingLogin = false
           this.customErrorLogin = errorResponse.error.message
           console.log(this.customErrorLogin);
-          // this.popupService.errorEmit(errorResponse.error.message)
+          this.popupService.errorEmit(errorResponse.error.message)
         },
         complete: () => {
           this.loadingLogin = false;

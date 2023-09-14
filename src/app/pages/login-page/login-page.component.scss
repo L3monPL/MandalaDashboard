@@ -60,6 +60,9 @@ input{
   padding: 0 0 0 50px;
   color: #000;
   background: #fff;
+  font-family: 'Righteous';
+  letter-spacing: normal;
+  font-size: 0.9rem;
 }
 .input-field-submit{
   width: 100%;
@@ -83,13 +86,13 @@ input{
   color: #fff;
 }
 .input-field mat-icon{
-  color: #000;
+  color: #c5a342;
 }
-// mat-icon{
-//   position: relative;
-//   top: -30px;
-//   left: 12px;
-// }
+mat-icon{
+  position: relative;
+  top: -30px;
+  left: 12px;
+}
 .addition{
     scale: 1;
     height: 180px;

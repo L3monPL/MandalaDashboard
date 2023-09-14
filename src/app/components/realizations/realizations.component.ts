@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RealizationService } from 'src/app/services/realization.service';
-import { Realization, RestService } from 'src/app/services/rest.service';
+import { Realization, RealizationListPaginator, RestService } from 'src/app/services/rest.service';
 
 @Component({
   selector: 'app-realizations',
@@ -12,7 +12,7 @@ export class RealizationsComponent implements OnInit{
 
   loadingRealizationsList = false
   subRealizationsList?: Subscription
-  realizationsList?: Array<Realization>
+  realizationsList?: RealizationListPaginator
   customErrorRealizationsList?: string
 
   loadingRealizationImage = false
@@ -30,12 +30,12 @@ export class RealizationsComponent implements OnInit{
 
   getRealizationsList(){
     this.loadingRealizationsList = true
-    this.subRealizationsList = this.rest.getRealizationsList().subscribe({
+    this.subRealizationsList = this.rest.getRealizationsListPaginator().subscribe({
       next: (response) => {
         if(response.body){
           this.realizationsList = response.body
-          this.realizationsList.sort((a, b) => b.id - a.id)
-          this.getImagesToList(this.realizationsList)
+          this.realizationsList.list.sort((a, b) => b.id - a.id)
+          this.getImagesToList(this.realizationsList.list)
         }
         else{
           this.customErrorRealizationsList = 'Brak obiektu odpowiedzi';

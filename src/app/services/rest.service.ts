@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
+export interface RealizationListPaginator{
+  listCount: number,
+  list: Array<Realization>
+}
+
 export interface Realization{
   id: number,
   title: string,
@@ -34,6 +39,15 @@ export class RestService {
       observe: 'response',
       responseType: 'json',
       headers: headers
+    })
+  }
+
+  //------------------------------------------------------------------------//
+
+  getRealizationsListPaginator(): Observable<HttpResponse<RealizationListPaginator>> {
+    return this.http.get<RealizationListPaginator>(this.PATH + `/realizations/paginator`, {
+      observe: 'response',
+      responseType: 'json'
     })
   }
 

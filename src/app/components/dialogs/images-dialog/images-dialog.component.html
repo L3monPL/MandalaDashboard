@@ -1,0 +1,15 @@
+<div class="card">
+    <div class="big_image_container">
+        <img [src]="this.data?.images![0].bloob" alt="">
+    </div>
+    <div class="panel_with_images">
+        <h2>{{this.data?.title}}</h2>
+        <p>{{this.data?.description}}</p>
+        <div class="images_list_component">
+            <div *ngFor="let image of this.data?.images" class="image">
+                <img [src]="image?.bloob" alt="">
+                <!-- {{image.id}} -->
+            </div>
+        </div>
+    </div>
+</div>

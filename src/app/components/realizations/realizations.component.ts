@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { RealizationService } from 'src/app/services/realization.service';
 import { Realization, RealizationListPaginator, RestService } from 'src/app/services/rest.service';
+import { ImagesDialogComponent } from '../dialogs/images-dialog/images-dialog.component';
 
 @Component({
   selector: 'app-realizations',
@@ -25,7 +27,8 @@ export class RealizationsComponent implements OnInit{
 
   constructor( 
     private rest: RestService,
-    private realizationService: RealizationService
+    private realizationService: RealizationService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -121,6 +124,21 @@ export class RealizationsComponent implements OnInit{
       }
     }
     // this.getRealizationsList(this.page)
+  }
+
+  openDialogFormPreview(enterAnimationDuration: string, exitAnimationDuration: string, imageData?: Realization): void {
+    const dialogRef = this.dialog.open(ImagesDialogComponent, {
+      width: '90vw',
+      height: '90vh',
+      enterAnimationDuration,
+      exitAnimationDuration,
+      data: imageData
+    });
+    dialogRef.afterClosed().subscribe(result =>{
+     if (result) {
+      console.log()
+    }
+  })
   }
 
 

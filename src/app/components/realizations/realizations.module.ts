@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RealizationsComponent } from './realizations.component';
+import { ImagesDialogModule } from '../dialogs/images-dialog/images-dialog.module';
 
 
 
@@ -9,7 +10,8 @@ import { RealizationsComponent } from './realizations.component';
     RealizationsComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ImagesDialogModule
   ],
   exports: [
     RealizationsComponent

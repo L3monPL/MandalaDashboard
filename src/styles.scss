@@ -1,7 +1,7 @@
 body, html{
     margin: 0px;
     padding: 0px;
-    font-family: "MandalaBrampton", sans-serif;
+    font-family: "MandalaBrampton", sans-serif!important;
     letter-spacing: 1px;
 }
 ::-webkit-scrollbar {
@@ -25,3 +25,5 @@ body, html{
 }
 
 // $global_gold: #c5a342;
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

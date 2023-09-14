@@ -19,6 +19,8 @@ export class RealizationCreateComponent implements OnInit{
   subRealizationImage?: Subscription
   customErrorRealizationImage?: string
 
+  loadingPostAllImages = false
+
   constructor(
     public realizationManagement: RealizationService,
     public rest: RestService,
@@ -163,7 +165,9 @@ export class RealizationCreateComponent implements OnInit{
     }
     console.log(this.realizationManagement.objectRealizationCreate.imagesArray)
 
+    let sumDonePostImages: number = 0
 
+    this.loadingPostAllImages = true
 
 
 
@@ -172,17 +176,26 @@ export class RealizationCreateComponent implements OnInit{
       this.loadingRealizationImage = true
       this.subRealizationImage  = this.rest.postRealizationImage(id, this.realizationManagement.objectRealizationCreate.imagesArray[index].position, this.realizationManagement.objectRealizationCreate.imagesArray[index].bloob).subscribe({
         next: (response) => {
-          if (this.realizationManagement.objectRealizationCreate.imagesArray[index]?.position == 0) {
-            this.realizationManagement.getRealizationList()
-          }
-          if (this.realizationManagement.objectRealizationCreate.imagesArray[index]?.position == maxPosition) {
-            this.popupService.succesEmit("Utworzono nową realizację")
+          // if (this.realizationManagement.objectRealizationCreate.imagesArray[index]?.position == 0) {
+          //   // this.realizationManagement.getRealizationList()
+          //   // this.clearForm()
+          // }
+          // if (this.realizationManagement.objectRealizationCreate.imagesArray[index]?.position == maxPosition) {
+          //   // this.popupService.succesEmit("Utworzono nową realizację")
+          // }
+          sumDonePostImages = sumDonePostImages + 1
+          console.log(this.realizationManagement.objectRealizationCreate.imagesArray.length)
+          console.log(sumDonePostImages)
+          if (this.realizationManagement.objectRealizationCreate.imagesArray.length == sumDonePostImages) {
             this.clearForm()
+            this.realizationManagement.getRealizationList()
+            this.popupService.succesEmit("Utworzono nową realizację")
+            this.loadingPostAllImages = false
           }
-          else{
-            this.customErrorRealizationImage  = 'Brak obiektu odpowiedzi';
-            this.popupService.errorEmit(this.customErrorRealizationImage)
-          }
+          // else{
+          //   this.customErrorRealizationImage  = 'Brak obiektu odpowiedzi';
+          //   this.popupService.errorEmit(this.customErrorRealizationImage)
+          // }
         },
         error: (errorResponse) => {
               this.loadingRealizationImage = false;

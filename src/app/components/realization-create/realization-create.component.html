@@ -39,5 +39,6 @@
     </div>
 </div>
 <div (click)="submit()" class="btn_submit">
-  <button>Utwórz</button>
+  <button *ngIf="!this.loadingPostAllImages" [disabled]="this.loadingPostAllImages">Utwórz</button>
+  <button *ngIf="this.loadingPostAllImages" [disabled]="this.loadingPostAllImages">Wgrywanie...</button>
 </div>

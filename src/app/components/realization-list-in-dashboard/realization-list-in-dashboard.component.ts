@@ -74,10 +74,18 @@ export class RealizationListInDashboardComponent implements OnInit, OnDestroy{
 
   getImagesToList(list: Array<Realization>){
     for (let index = 0; index < list.length; index++) {
+
+      let indexPosition0: number
+
+      for (let indexPosition = 0; indexPosition < list[index].images.length; indexPosition++) {
+        if (list[index].images[indexPosition].position == 0) {
+          indexPosition0 = indexPosition
+        }
+      }
       // for (let indexImage = 0; indexImage < list[index].images.length; indexImage++) {
         this.loadingRealizationImage = true
         // list[index].images[indexImage].id
-        this.subRealizationImage = this.rest.getRealizationImage(list[index].images[0]?.id).subscribe({
+        this.subRealizationImage = this.rest.getRealizationImage(list[index].images[indexPosition0!]?.id).subscribe({
           next: (response) => {
             if(response){
               // console.log(response)

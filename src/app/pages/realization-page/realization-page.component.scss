@@ -6,3 +6,14 @@
 .page > *{
     flex: 1;
 }
+
+
+
+@media only screen and (max-width: 1000px){
+    .page{
+        flex-direction: column-reverse;
+    }
+    app-realization-create{
+        margin-bottom: 0.5rem;
+    }
+}

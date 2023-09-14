@@ -4,7 +4,7 @@
 <div class="page">
     <div *ngFor="let realization of realizationsList; let i = index" class="item_realization">
         <div class="title_realization">
-            {{realization.id}}.
+            {{i + 1}}.
             {{realization.title}}
         </div>
         <div class="images_container">
@@ -13,7 +13,7 @@
             </div>
         </div>
         <div (click)="deleteRealization(realization.id)" class="delete_container">
-            X
+            <mat-icon title="Usuń realizacje" fontIcon="delete"></mat-icon>
         </div>
     </div>
 </div>

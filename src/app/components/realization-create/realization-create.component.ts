@@ -38,6 +38,7 @@ export class RealizationCreateComponent implements OnInit{
 
   handleFileInput(event: any): void {
     const files: any = event.target.files;
+    console.log(files)
     for (let i = 0; i < files.length; i++) {
       this.fileToUploads.push(files.item(i));
       this.realizationManagement.objectRealizationCreate.imagesArray.push({
@@ -49,6 +50,7 @@ export class RealizationCreateComponent implements OnInit{
 
   onImagesSelected(event: any) {
     const files = event.target.files;
+    console.log(files)
     if (files) {
       for (let i = 0; i < files.length; i++) {
         const reader = new FileReader();
@@ -80,6 +82,13 @@ export class RealizationCreateComponent implements OnInit{
     const files = event.dataTransfer?.files;
     if (files) {
       for (let i = 0; i < files.length; i++) {
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          this.selectedImages.push(e.target!.result);
+        };
+        reader.readAsDataURL(files[i]);
+
         this.fileToUploads.push(files.item(i));
         this.realizationManagement.objectRealizationCreate.imagesArray.push({
           bloob: files.item(i),
@@ -217,6 +226,17 @@ export class RealizationCreateComponent implements OnInit{
     this.fileToUploads = []
     this.selectedFile = null
     this.selectedImages = []
+  }
+
+  clearImages(){
+    this.realizationManagement.objectRealizationCreate.imagesArray = []
+    this.realizationManagement.indexFirstImageSelected = null
+    this.fileToUploads = []
+    this.fileToUploads.length = 0
+    this.isDragging = false
+    this.selectedFile = null
+    this.selectedImages = []
+    this.selectedImages.length = 0
   }
 
 

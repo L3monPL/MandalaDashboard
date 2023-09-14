@@ -12,6 +12,10 @@ export class DashboardNavLabelComponent {
     private router: Router,
   ) { }
 
+  home(){
+    this.router.navigateByUrl('/')
+  }
+
   logout(){
     localStorage.removeItem('auth_app_token')
     this.router.navigateByUrl('/')

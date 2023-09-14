@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RealizationListInDashboardComponent } from './realization-list-in-dashboard.component';
-
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -9,7 +9,8 @@ import { RealizationListInDashboardComponent } from './realization-list-in-dashb
     RealizationListInDashboardComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    MatIconModule
   ],
   exports: [
     RealizationListInDashboardComponent

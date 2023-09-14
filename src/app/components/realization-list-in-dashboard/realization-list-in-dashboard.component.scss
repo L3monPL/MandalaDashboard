@@ -16,6 +16,8 @@
     row-gap: 0.5rem;
     height: calc(100vh - 147px);
     overflow-y: scroll;
+    font-family: 'Righteous';
+    letter-spacing: normal;
 }
 .item_realization{
     display: flex;
@@ -32,6 +34,7 @@
     top: 2px;
     right: 2px;
     cursor: pointer;
+    color: #a33232;
 }
 .title_realization{
     display: flex;

@@ -20,7 +20,16 @@
     </div>
     <div class="images_container">
         <div *ngIf="fileToUploads.length > 0" class="file_done">
-            Wybierz z listy zdjecie tytułowe
+          <div class="row_text_images">
+            <div class="txt">
+              Wybierz z listy zdjecie tytułowe
+            </div>
+            <div (click)="clearImages()" class="txt_delete_images">
+              Usuń zdjęcia
+            </div>
+
+          </div>
+            
             <!-- <div *ngIf="fileToUploads.length > 0" class="list_of_upload_image">
               <div class="item_file" *ngFor="let file of fileToUploads" [class.selected-item]="file === selectedFile"
               (click)="selectFile(file)">
@@ -39,6 +48,6 @@
     </div>
 </div>
 <div (click)="submit()" class="btn_submit">
-  <button *ngIf="!this.loadingPostAllImages" [disabled]="this.loadingPostAllImages">Utwórz</button>
-  <button *ngIf="this.loadingPostAllImages" [disabled]="this.loadingPostAllImages">Wgrywanie...</button>
+  <button *ngIf="!this.loadingPostAllImages" [disabled]="this.loadingPostAllImages">UTWÓRZ</button>
+  <button *ngIf="this.loadingPostAllImages" [disabled]="this.loadingPostAllImages">WGRYWANIE...</button>
 </div>

@@ -28,6 +28,7 @@
 .images_list_component .image img{
     width: calc(100% - 1rem);
     padding: 0.5rem;
+    cursor: pointer;
 }
 .panel_with_images{
     width: 20%;

@@ -11,6 +11,8 @@ import { Realization, RestService } from 'src/app/services/rest.service';
 })
 export class ImagesDialogComponent implements OnInit{
 
+  indexSelectImage?: number = 0
+
   loadingRealizationImage = false
   subRealizationImage?: Subscription
   customErrorRealizationImage?: string
@@ -67,5 +69,9 @@ export class ImagesDialogComponent implements OnInit{
         }
       })
     }
+  }
+
+  selectImage(index: number){
+    this.indexSelectImage =  index
   }
 }

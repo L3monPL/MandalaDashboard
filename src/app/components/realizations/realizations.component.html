@@ -5,7 +5,7 @@
     </div>
     <div class="items_container">
         <div *ngFor="let image of realizationsList?.list; let i = index" (click)="openDialogFormPreview('200ms', '100ms', image)" class="item" [ngStyle]="{'background-image': 'url(' + image.images[0]?.bloob! + ')'}">
-            <!-- <img src="../../../assets/realizations/ramka-na-sciane-ze-skandynawskim-wnetrzem-domu.jpg" alt=""> -->
+            <div class="image-text">{{image.title}}</div>
         </div>
         <div *ngIf="realizationsList?.list!.length! <= 3" class="item">
             
@@ -21,7 +21,7 @@
             
         </div>
     </div>
-    <div class="btn_container">
+    <div class="btn_container" *ngIf="realizationsList?.list!.length != 0">
         <img (click)="changePage('back')" src="../../../assets/icons/arrow-prev-small-svgrepo-com.svg" alt="">
         {{this.page}}<div class="txt_no_font">/</div>{{this.maxPages}}
         <img (click)="changePage('next')" src="../../../assets/icons/arrow-next-small-svgrepo-com.svg" alt="">

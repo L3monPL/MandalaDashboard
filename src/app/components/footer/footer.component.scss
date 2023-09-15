@@ -39,6 +39,11 @@
 .container_column p{
     color: #a5a5a5;
 }
+.container_column a{
+    color: #a5a5a5;
+    cursor: pointer;
+    text-decoration: none;
+}
 .row_contact img{
     width: 35px;
     // height: 35px;
@@ -108,6 +113,7 @@
     flex-direction: row;
     align-items: center;
     color: #a5a5a5;
+    cursor: pointer;
 }
 .txt_no_font{
     font-family: Arial, Helvetica, sans-serif;

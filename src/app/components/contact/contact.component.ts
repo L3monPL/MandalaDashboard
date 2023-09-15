@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PopupManagementService } from 'src/app/services/popup-management.service';
 import { RestService } from 'src/app/services/rest.service';
@@ -23,7 +24,8 @@ export class ContactComponent {
 
   constructor(
     private rest: RestService,
-    private popupService: PopupManagementService
+    private popupService: PopupManagementService,
+    private router: Router
   ) { }
 
 
@@ -92,5 +94,12 @@ export class ContactComponent {
       email: '',
       description: ''
     });
+  }
+
+  privacyPolicy(event: Event){
+    event.preventDefault();
+    let link = `/polityka-prywatnosci`
+    // this.router.navigateByUrl(link);
+    window.open(link, '_blank')
   }
 }

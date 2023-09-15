@@ -1,0 +1,23 @@
+.page{
+    // height: 100vh;
+    overflow-y: scroll;
+    background: rgb(33,33,33);
+    background: radial-gradient(circle, rgba(33,33,33,1) 0%, rgba(14,14,14,1) 100%);
+    color: #fff;
+    font-family: 'Righteous';
+    letter-spacing: normal;
+    margin: 0px;
+    // padding: 10% 20%;
+}
+.margins{
+    padding: 5% 10%;
+}
+h2{
+    margin: 0px;
+    text-align: center;
+}
+p{
+    margin: 0px;
+    text-align: justify;
+    margin-top: 2rem;
+}

@@ -17,6 +17,10 @@ const routes: Routes = [
     path: 'dashboard',
     loadChildren: () => import('./pages/dashboard-page/dashboard-page.module').then(m=>m.DashboardPageModule)
   },
+  {
+    path: 'polityka-prywatnosci',
+    loadChildren: () => import('./pages/privacy-policy-page/privacy-policy-page.module').then(m=>m.PrivacyPolicyPageModule)
+  },
 ];
 
 @NgModule({

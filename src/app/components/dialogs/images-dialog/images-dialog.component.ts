@@ -43,31 +43,54 @@ export class ImagesDialogComponent implements OnInit{
   getImages(){
     for (let index = 0; index < this.data!.images.length; index++) {
       // console.log(this.data!.images[index])
-      // if (this.data!.images[index]) {
-      // }
-      this.subRealizationImage = this.rest.getRealizationImage(this.data!.images[index]?.id).subscribe({
-        next: (response) => {
-          if(response){
-            // console.log(response)
-            this.data!.images[index]!.bloob = URL.createObjectURL(response)!;
-            // this.realizationsList = response.body
+      if (!this.data!.images[index]!.bloob) {
+        this.subRealizationImage = this.rest.getRealizationImage(this.data!.images[index]?.id).subscribe({
+          next: (response) => {
+            if(response){
+              // console.log(response)
+              this.data!.images[index]!.bloob = URL.createObjectURL(response)!;
+              // this.realizationsList = response.body
+            }
+            else{
+              this.customErrorRealizationImage = 'Brak obiektu odpowiedzi';
+              // this.popupService.errorEmit(this.customErrorRealizationsList)
+            }
+            this.loadingRealizationImage = false
+          },
+          error: (errorResponse) => {
+            this.loadingRealizationImage = false
+            this.customErrorRealizationImage = errorResponse.error.message
+            console.log(this.customErrorRealizationImage);
+            // this.popupService.errorEmit(errorResponse.error.message)
+          },
+          complete: () => {
+            this.loadingRealizationImage = false;
           }
-          else{
-            this.customErrorRealizationImage = 'Brak obiektu odpowiedzi';
-            // this.popupService.errorEmit(this.customErrorRealizationsList)
-          }
-          this.loadingRealizationImage = false
-        },
-        error: (errorResponse) => {
-          this.loadingRealizationImage = false
-          this.customErrorRealizationImage = errorResponse.error.message
-          console.log(this.customErrorRealizationImage);
-          // this.popupService.errorEmit(errorResponse.error.message)
-        },
-        complete: () => {
-          this.loadingRealizationImage = false;
-        }
-      })
+        })
+      }
+      // this.subRealizationImage = this.rest.getRealizationImage(this.data!.images[index]?.id).subscribe({
+      //   next: (response) => {
+      //     if(response){
+      //       // console.log(response)
+      //       this.data!.images[index]!.bloob = URL.createObjectURL(response)!;
+      //       // this.realizationsList = response.body
+      //     }
+      //     else{
+      //       this.customErrorRealizationImage = 'Brak obiektu odpowiedzi';
+      //       // this.popupService.errorEmit(this.customErrorRealizationsList)
+      //     }
+      //     this.loadingRealizationImage = false
+      //   },
+      //   error: (errorResponse) => {
+      //     this.loadingRealizationImage = false
+      //     this.customErrorRealizationImage = errorResponse.error.message
+      //     console.log(this.customErrorRealizationImage);
+      //     // this.popupService.errorEmit(errorResponse.error.message)
+      //   },
+      //   complete: () => {
+      //     this.loadingRealizationImage = false;
+      //   }
+      // })
     }
   }
 

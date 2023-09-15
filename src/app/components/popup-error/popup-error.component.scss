@@ -51,10 +51,11 @@
 
 @media only screen and (max-width: 800px){
     .container_list{
-        width: 100%;
+        // width: 100%;
+        width: calc(100vw - 2rem);
     }
     .card{
-        margin-left: 2rem;
+        margin-left: 0rem;
         // margin-right: 1rem;
         width: auto;
     }

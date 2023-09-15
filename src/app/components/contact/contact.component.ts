@@ -28,19 +28,17 @@ export class ContactComponent {
 
 
   submitEmail(){
+    let name = this.formEmail.get('name')!.value;
+    let email = this.formEmail.get('email')!.value;
+    let description = this.formEmail.get('description')!.value;
+
     if (this.formEmail.valid) {
-      let name = this.formEmail.get('name')!.value;
-      let email = this.formEmail.get('email')!.value;
-      let description = this.formEmail.get('description')!.value;
-
-      console.log('test')
-
-      let text
-
-      this.subLogin = this.rest.postContactEmail(email!, description!).subscribe({
+      this.loadingLogin = true
+      this.subLogin = this.rest.postContactEmail(name!, email!, description!).subscribe({
         next: (response) => {
           if(response.body){
-
+            this.popupService.succesEmit(response.body.message)
+            this.resetForm()
           }
           else{
             this.customErrorLogin = 'Brak obiektu odpowiedzi';
@@ -57,5 +55,42 @@ export class ContactComponent {
         }
       }) 
     }
+    else{
+      if (email && name && description) {
+        this.popupService.errorEmit('Wprowadź poprawny adres e-mail!')
+      }
+      console.log('invalid')
+      if (!email && !name && !description) {
+        this.popupService.errorEmit('Uzupełnij formularz!')
+      }
+
+      if (!email && name && description) {
+        this.popupService.errorEmit('Wprowadź adres email!')
+      }
+      if (email && !name && description) {
+        this.popupService.errorEmit('Wprowadź swoje dane!')
+      }
+      if (email && name && !description) {
+        this.popupService.errorEmit('Wprowadź opis!')
+      }
+
+      if (email && !name && !description) {
+        this.popupService.errorEmit('Uzupełnij formularz!')
+      }
+      if (!email && name && !description) {
+        this.popupService.errorEmit('Uzupełnij formularz!')
+      }
+      if (!email && !name && description) {
+        this.popupService.errorEmit('Uzupełnij formularz!')
+      }
+    }
+  }
+
+  resetForm(){
+    this.formEmail.reset({
+      name: '',
+      email: '',
+      description: ''
+    });
   }
 }

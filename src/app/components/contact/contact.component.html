@@ -14,7 +14,7 @@
                 <textarea formControlName="description" placeholder="Opis..." name="" id="" cols="30" rows="10"></textarea>
                 <div class="desc_text">Administratorem danych osobowych jest firma Mandala Nieruchomości z siedzibą przy ul. Wakacyjna 19<div class="txt_no_font">/</div>2, 60-185 Skórzewo. Dane podane w formularzu są niezbędne do przesłania odpowiedzi na zapytanie oraz przedstawienie oferty. Więcej informacji dotyczących przetwarzania danych osobowych znajduje się w <a href="">polityce prywatności.</a></div>
                 <div class="btn_container">
-                   <button>Wyślij</button> 
+                   <button [disabled]="this.loadingLogin" (click)="submitEmail()">Wyślij</button> 
                 </div>
             </div>
         </div>

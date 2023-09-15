@@ -129,10 +129,12 @@ export class RestService {
   //------------------------------------------------------------------------//
 
   postContactEmail(
+    name: string,
     email: string,
     text: string
   ): Observable<HttpResponse<any>> {
     return this.http.post<any>(this.PATH + `/message`, {
+      name: name,
       email: email,
       text: text
     }, {

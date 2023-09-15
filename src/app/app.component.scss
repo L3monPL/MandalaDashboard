@@ -1,3 +1,13 @@
 router-outlet{
     width: 100vw;
 }
+app-popup-error{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}
+app-popup-done{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+}

@@ -1,0 +1,71 @@
+<section class="values">
+
+  <!-- Faded mandala background -->
+  <div class="bg-mandala" aria-hidden="true">
+    <svg class="m-svg" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(200,200)">
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(315)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(22.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(67.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(112.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(157.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(202.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(247.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(292.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(315)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(337.5)"/>
+        <circle cx="0" cy="0" r="175" fill="none" stroke="#C5A342" stroke-width=".3"/>
+        <circle cx="0" cy="0" r="130" fill="none" stroke="#C5A342" stroke-width=".3"/>
+        <circle cx="0" cy="0" r="85"  fill="none" stroke="#C5A342" stroke-width=".3"/>
+        <circle cx="0" cy="0" r="45"  fill="none" stroke="#C5A342" stroke-width=".3"/>
+        <circle cx="0" cy="0" r="18"  fill="none" stroke="#C5A342" stroke-width=".8"/>
+        <circle cx="0" cy="0" r="4"   fill="#C5A342"/>
+      </g>
+    </svg>
+  </div>
+
+  <!-- Header -->
+  <div class="s-header" appReveal>
+    <div class="eyebrow-row">
+      <span class="label-line"></span>
+      <p class="eyebrow">Nasze Fundamenty</p>
+      <span class="label-line"></span>
+    </div>
+    <p class="header-sub">Trzy zasady, które wyznaczają każdą naszą decyzję.</p>
+  </div>
+
+  <!-- Three pillar cards -->
+  <div class="pillars">
+    <div
+      class="pillar"
+      *ngFor="let v of values; let i = index"
+      appReveal
+      [revealDelay]="(i + 1) * 150"
+    >
+      <span class="p-roman">{{ romans[i] }}</span>
+
+      <div class="p-drip">
+        <div class="p-line"></div>
+        <div class="p-gem"></div>
+      </div>
+
+      <h3 class="p-title">{{ v.title }}</h3>
+      <p class="p-desc">{{ v.desc }}</p>
+    </div>
+  </div>
+
+</section>

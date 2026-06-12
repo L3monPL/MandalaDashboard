@@ -1,0 +1,50 @@
+<div class="toast-stack" aria-live="polite" aria-atomic="false">
+  <div
+    *ngFor="let toast of toasts; trackBy: trackById"
+    [@toastAnim]
+    class="toast"
+    [class.toast--success]="toast.type === 'success'"
+    [class.toast--error]="toast.type === 'error'"
+    [class.toast--warning]="toast.type === 'warning'"
+  >
+
+    <!-- Icon -->
+    <div class="toast-icon">
+      <!-- Success -->
+      <svg *ngIf="toast.type === 'success'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+        <polyline points="22 4 12 14.01 9 11.01"/>
+      </svg>
+      <!-- Error -->
+      <svg *ngIf="toast.type === 'error'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="12" y1="8" x2="12" y2="12"/>
+        <line x1="12" y1="16" x2="12.01" y2="16"/>
+      </svg>
+      <!-- Warning -->
+      <svg *ngIf="toast.type === 'warning'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/>
+        <line x1="12" y1="9" x2="12" y2="13"/>
+        <line x1="12" y1="17" x2="12.01" y2="17"/>
+      </svg>
+    </div>
+
+    <!-- Body -->
+    <div class="toast-body">
+      <span class="toast-label">{{ label(toast.type) }}</span>
+      <p class="toast-msg">{{ toast.message.length > 120 ? (toast.message | slice:0:120) + '…' : toast.message }}</p>
+    </div>
+
+    <!-- Close -->
+    <button class="toast-close" (click)="remove(toast.id)" aria-label="Zamknij">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
+      </svg>
+    </button>
+
+    <!-- Progress bar -->
+    <div class="toast-progress"></div>
+
+  </div>
+</div>

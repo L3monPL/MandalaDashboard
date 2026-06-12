@@ -26,17 +26,11 @@ export class HomePageComponent implements OnInit{
     })
   }
 
-  scrollToSection(sectionId: string) {
+  scrollToSection(sectionId: string): void {
     const section = this.el.nativeElement.querySelector(`#${sectionId}`);
     if (section) {
-      // section.scrollIntoView({ behavior: 'smooth' });
-      const scrollOffset = section.getBoundingClientRect().top - 30;
-    
-    // Scroll to the section with smooth behavior
-    window.scrollBy({
-      top: scrollOffset,
-      behavior: 'smooth',
-    });
+      const top = section.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   }
 

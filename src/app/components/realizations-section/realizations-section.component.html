@@ -1,0 +1,38 @@
+<section class="realizations">
+  <p class="sec-label" appReveal>Portfolio</p>
+  <h2 class="sec-title" appReveal [revealDelay]="100">Nasze realizacje</h2>
+
+  <div class="grid" *ngIf="realizationsList?.list?.length">
+    <div
+      *ngFor="let item of realizationsList!.list; let i = index"
+      class="card"
+      appReveal
+      [revealDelay]="(i + 1) * 100"
+      (click)="openPreview(item)"
+    >
+      <div
+        class="img"
+        [style.background-image]="'url(' + item.images[0]?.bloob + ')'"
+      ></div>
+      <div class="overlay">
+        <span class="overlay-title">{{ item.title }}</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Empty state -->
+  <p class="empty" *ngIf="!loading && !realizationsList?.list?.length">
+    Realizacje zostaną dodane wkrótce.
+  </p>
+
+  <!-- Pagination -->
+  <div class="pagination" *ngIf="(realizationsList?.list?.length ?? 0) > 0">
+    <button class="pg-btn" (click)="changePage('prev')" [disabled]="page <= 1">
+      <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+    </button>
+    <span class="pg-info">{{ page }} / {{ maxPages }}</span>
+    <button class="pg-btn" (click)="changePage('next')" [disabled]="page >= maxPages">
+      <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+    </button>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+<section class="hero">
+
+  <!-- Animated mandala background -->
+  <div class="mandala-bg">
+    <svg class="mandala-svg" [style.transform]="'translateY(' + parallaxY + 'px)'"
+         viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+      <g transform="translate(200,200)">
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-70" rx="18" ry="55" fill="none" stroke="#C5A342" stroke-width=".7" transform="rotate(315)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(0)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(22.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(67.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(112.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(157.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(202.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(247.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(292.5)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(315)"/>
+        <ellipse cx="0" cy="-130" rx="12" ry="45" fill="none" stroke="#C5A342" stroke-width=".4" transform="rotate(337.5)"/>
+        <circle cx="0" cy="0" r="175" fill="none" stroke="#C5A342" stroke-width=".3"/>
+        <circle cx="0" cy="0" r="130" fill="none" stroke="#C5A342" stroke-width=".3"/>
+        <circle cx="0" cy="0" r="85"  fill="none" stroke="#C5A342" stroke-width=".3"/>
+        <circle cx="0" cy="0" r="45"  fill="none" stroke="#C5A342" stroke-width=".3"/>
+        <circle cx="0" cy="0" r="18"  fill="none" stroke="#C5A342" stroke-width=".8"/>
+        <circle cx="0" cy="0" r="4"   fill="#C5A342"/>
+      </g>
+    </svg>
+    <div class="ring ring-1"></div>
+    <div class="ring ring-2"></div>
+    <div class="ring ring-3"></div>
+    <div class="ring ring-4"></div>
+    <div class="ring ring-5"></div>
+    <div class="glow" [style.transform]="'translateY(' + parallaxY * 1.5 + 'px)'"></div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <!-- <p class="eyebrow">Zarządzanie Nieruchomościami &nbsp;·&nbsp; Skórzewo &nbsp;·&nbsp; Poznań</p> -->
+    <h1 class="title">
+      Twoja<br>
+      <em>Nieruchomość.</em>
+      Nasza Misja.
+    </h1>
+    <p class="subtitle">
+      Firma rodzinna z wieloletnim doświadczeniem. Profesjonalne zarządzanie nieruchomościami
+      z pełnym zaangażowaniem i indywidualnym podejściem do każdego Klienta.
+    </p>
+    <br><br>
+    <!-- <div class="actions">
+      <button class="btn-primary" (click)="navigate('contact')">Skontaktuj się</button>
+      <button class="btn-secondary" (click)="navigate('services')">Nasze usługi</button>
+    </div> -->
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="scroll-hint">
+    <span>Przewiń</span>
+    <div class="scroll-line"></div>
+  </div>
+
+</section>

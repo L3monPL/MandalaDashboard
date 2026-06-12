@@ -1,0 +1,19 @@
+<nav [class.scrolled]="isScrolled">
+  <span class="logo" (click)="navigate('hero')">
+    <img src="assets/logo/Mandala_zloto_sygnet.png" alt="Mandala">
+    <span class="logo-text">MANDALA NIERUCHOMOŚCI</span>
+  </span>
+
+  <ul class="links" [class.open]="isMobileOpen">
+    <li (click)="navigate('services')"><a>Usługi</a></li>
+    <li (click)="navigate('about')"><a>O nas</a></li>
+    <li (click)="navigate('realizations')"><a>Realizacje</a></li>
+    <li (click)="navigate('contact')"><a class="cta">Kontakt</a></li>
+  </ul>
+
+  <button class="burger" (click)="toggleMobile()" aria-label="Menu">
+    <span [class.top-open]="isMobileOpen"></span>
+    <span [class.mid-open]="isMobileOpen"></span>
+    <span [class.bot-open]="isMobileOpen"></span>
+  </button>
+</nav>

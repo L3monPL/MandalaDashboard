@@ -1,0 +1,114 @@
+<section class="contact">
+
+  <!-- Background decoration -->
+  <div class="bg-deco" aria-hidden="true">
+    <div class="deco-ring r1"></div>
+    <div class="deco-ring r2"></div>
+    <div class="deco-ring r3"></div>
+    <div class="deco-glow"></div>
+  </div>
+
+  <!-- Two-column grid -->
+  <div class="grid">
+
+    <!-- Left: info -->
+    <div class="info-col" appReveal="left">
+
+      <div class="label-row">
+        <span class="label-line"></span>
+        <p class="sec-eyebrow">Kontakt</p>
+      </div>
+
+      <h2 class="sec-title">Porozmawiajmy<br>o Twojej<br><em>nieruchomości</em></h2>
+
+      <p class="info-lead">
+        Skontaktuj się z nami — odpowiemy na każde pytanie dotyczące sprzedaży, zakupu lub zarządzania nieruchomością.
+      </p>
+
+      <div class="info-items">
+
+        <div class="info-item" appReveal [revealDelay]="180">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          </div>
+          <div>
+            <p class="info-label">Email</p>
+            <a class="info-value" href="mailto:biuro@mandalanieruchomosci.com">biuro@mandalanieruchomosci.com</a>
+          </div>
+        </div>
+
+        <div class="info-item" appReveal [revealDelay]="300">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+          </div>
+          <div>
+            <p class="info-label">Telefon</p>
+            <a class="info-value" href="tel:+48538337774">+48 538 337 774</a>
+          </div>
+        </div>
+
+        <div class="info-item" appReveal [revealDelay]="420">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+          </div>
+          <div>
+            <p class="info-label">Lokalizacja</p>
+            <p class="info-value">ul. Wakacyjna 19/2<br>60-185 Skórzewo, Wielkopolska</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Right: form -->
+    <div class="form-col" appReveal="right" [revealDelay]="120">
+      <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="field">
+          <label>Imię i nazwisko</label>
+          <input formControlName="name" type="text" placeholder="Jan Kowalski" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label>Adres e-mail</label>
+          <input formControlName="email" type="email" placeholder="jan@example.com" autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label>Wiadomość</label>
+          <textarea formControlName="message" placeholder="Opisz swoją nieruchomość i czego potrzebujesz…"></textarea>
+        </div>
+
+        <p class="note">
+          Administratorem danych osobowych jest firma Mandala Nieruchomości z siedzibą
+          przy ul. Wakacyjna 19/2, 60-185 Skórzewo.
+          Więcej informacji w <a href="#" (click)="openPrivacyPolicy($event)">polityce prywatności</a>.
+        </p>
+
+        <div class="feedback error-msg" *ngIf="errorMsg">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+          </svg>
+          {{ errorMsg }}
+        </div>
+
+        <div class="feedback success-msg" *ngIf="success">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          Wiadomość wysłana — odezwiemy się wkrótce.
+        </div>
+
+        <button type="submit" class="btn-submit" [disabled]="loading">
+          <div class="spinner-btn" *ngIf="loading"></div>
+          <svg *ngIf="!loading" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          {{ loading ? 'Wysyłanie…' : 'Wyślij wiadomość' }}
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</section>

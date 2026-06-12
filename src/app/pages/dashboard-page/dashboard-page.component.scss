@@ -1,33 +1,80 @@
-.page{
-    height: 100vh;
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--dark);
 }
-.main_component{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+
+.body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
 }
-.navigation_component{
-    background-color: #ececec;
-    width: 180px;
-    display: flex;
-    flex-direction: column;
-    height: calc(100vh - 50px);
-    font-size: 1.1rem;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+/* ── Sidebar ── */
+.sidebar {
+  width: 220px;
+  flex-shrink: 0;
+  background: var(--dark-2);
+  border-right: 1px solid var(--border);
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 64px);
 }
-.navigation_component p{
-    margin: 0px;
-    cursor: pointer;
-    padding: 0.7rem 0rem;
-    padding-left: 1rem;
-    border-bottom: 1px solid #c0c0c0;
-    transition: 0.3s;
+
+.nav-section-label {
+  font-size: .6rem;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--gray-dim);
+  padding: 0 1.5rem .75rem;
+  margin: 0;
 }
-.navigation_component p:hover{
-    color: #c5a342;
-    transition: 0.3s;
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .7rem 1.5rem;
+  font-size: .85rem;
+  color: var(--gray);
+  cursor: pointer;
+  transition: color .2s, background .2s;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%) scaleY(0);
+    width: 2px;
+    height: 60%;
+    background: var(--gold);
+    border-radius: 0 2px 2px 0;
+    transition: transform .2s;
+  }
+
+  &:hover {
+    color: var(--white);
+    background: rgba(255, 255, 255, .03);
+  }
+
+  &.active {
+    color: var(--gold);
+    background: rgba(197, 163, 66, .07);
+
+    &::before { transform: translateY(-50%) scaleY(1); }
+  }
+
+  svg { flex-shrink: 0; opacity: .75; }
 }
-.site{
-    padding: 1rem;
-    width: calc(100% - 1rem);
+
+/* ── Content area ── */
+.content {
+  flex: 1;
+  padding: 2rem;
+  overflow-y: auto;
+  min-height: calc(100vh - 64px);
 }

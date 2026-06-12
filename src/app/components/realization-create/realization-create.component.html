@@ -1,53 +1,98 @@
-<div class="title">
-    Utwórz nową realizacje
-</div>
-<div class="page">
-    <input [(ngModel)]="this.realizationManagement.objectRealizationCreate.title" type="text" placeholder="Tytuł realizacji">
-    <textarea [(ngModel)]="this.realizationManagement.objectRealizationCreate.description" name="description" placeholder="Opis realizacji..." id="" cols="30" rows="10"></textarea>
+<div class="panel">
 
-    <div class="file_container" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
-        <label for="file">
-            <div *ngIf="true" class="file_text_add">
-                Dodaj zdjęcia
-            </div>
-          <input id="file" type="file" (change)="onImagesSelected($event)" accept="image/*" multiple (change)="handleFileInput($event)" style="display: none;">
-          <!-- <div *ngIf="fileToUploads.length > 0" class="file_done" [class.dragging]="isDragging">
-            <ul *ngIf="fileToUploads.length > 0">
-              <li *ngFor="let file of fileToUploads">{{ file.name }}</li>
-            </ul>
-          </div> -->
+  <div class="panel-header">
+    <h2 class="panel-title">Nowa realizacja</h2>
+  </div>
+
+  <div class="panel-body">
+
+    <div class="field">
+      <label class="field-label" for="real-title">Tytuł</label>
+      <input
+        id="real-title"
+        class="field-input"
+        [(ngModel)]="this.realizationManagement.objectRealizationCreate.title"
+        type="text"
+        placeholder="Wpisz tytuł realizacji..."
+      >
+    </div>
+
+    <div class="field">
+      <label class="field-label" for="real-desc">Opis</label>
+      <textarea
+        id="real-desc"
+        class="field-textarea"
+        [(ngModel)]="this.realizationManagement.objectRealizationCreate.description"
+        placeholder="Opisz szczegóły realizacji..."
+        rows="5"
+      ></textarea>
+    </div>
+
+    <div class="field">
+      <label class="field-label">Zdjęcia</label>
+      <div
+        class="dropzone"
+        [class.dragging]="isDragging"
+        (dragover)="onDragOver($event)"
+        (dragleave)="onDragLeave($event)"
+        (drop)="onDrop($event)"
+      >
+        <label for="file" class="dropzone-inner">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="16,16 12,12 8,16"/>
+            <line x1="12" y1="12" x2="12" y2="21"/>
+            <path d="M20.39,18.39A5,5,0,0,0,18,9h-1.26A8,8,0,1,0,3,16.3"/>
+          </svg>
+          <span class="dz-main">Przeciągnij pliki lub <span class="dz-link">kliknij tutaj</span></span>
+          <span class="dz-sub">PNG, JPG — wiele plików naraz</span>
         </label>
+        <input id="file" type="file" (change)="onImagesSelected($event); handleFileInput($event)" accept=".png,.jpg,.jpeg" multiple>
+      </div>
     </div>
-    <div class="images_container">
-        <div *ngIf="fileToUploads.length > 0" class="file_done">
-          <div class="row_text_images">
-            <div class="txt">
-              Wybierz z listy zdjecie tytułowe
-            </div>
-            <div (click)="clearImages()" class="txt_delete_images">
-              Usuń zdjęcia
-            </div>
 
+    <div class="images-section" *ngIf="selectedImages.length > 0">
+      <div class="images-header">
+        <label class="field-label">Zdjęcie tytułowe <span class="field-hint">— kliknij aby wybrać</span></label>
+        <button class="clear-btn" (click)="clearImages()">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+          Usuń wszystkie
+        </button>
+      </div>
+      <div class="images-grid">
+        <div
+          class="img-item"
+          *ngFor="let image of selectedImages; let i = index"
+          [class.selected]="image === selectedFile"
+          (click)="selectFile(image, i)"
+        >
+          <img [src]="image" alt="Podgląd zdjęcia">
+          <div class="img-check" *ngIf="image === selectedFile">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20,6 9,17 4,12"/>
+            </svg>
           </div>
-            
-            <!-- <div *ngIf="fileToUploads.length > 0" class="list_of_upload_image">
-              <div class="item_file" *ngFor="let file of fileToUploads" [class.selected-item]="file === selectedFile"
-              (click)="selectFile(file)">
-                <div class="file_text">
-                    {{file.name}}
-                </div>
-              </div>
-            </div> -->
-            <div *ngIf="selectedImages.length > 0" class="list_of_upload_image">
-              <div class="item_file" *ngFor="let image of selectedImages; let i = index" [class.selected-item]="image === selectedFile"
-              (click)="selectFile(image, i)">
-                <img [src]="image" alt="Selected Image">
-              </div>
-            </div>
-          </div>
+          <button class="img-remove" (click)="removeImage(i, $event)" title="Usuń zdjęcie">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+        </div>
+      </div>
     </div>
-</div>
-<div (click)="submit()" class="btn_submit">
-  <button *ngIf="!this.loadingPostAllImages" [disabled]="this.loadingPostAllImages">UTWÓRZ</button>
-  <button *ngIf="this.loadingPostAllImages" [disabled]="this.loadingPostAllImages">WGRYWANIE...</button>
+
+  </div>
+
+  <div class="panel-footer">
+    <button class="btn-submit" (click)="submit()" [disabled]="loadingPostAllImages">
+      <svg *ngIf="!loadingPostAllImages" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"/>
+        <line x1="5" y1="12" x2="19" y2="12"/>
+      </svg>
+      <div class="spinner-btn" *ngIf="loadingPostAllImages"></div>
+      {{ loadingPostAllImages ? 'Wgrywanie...' : 'Utwórz realizację' }}
+    </button>
+  </div>
+
 </div>

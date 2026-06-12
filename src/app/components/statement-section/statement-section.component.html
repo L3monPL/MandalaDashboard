@@ -1,0 +1,13 @@
+<section class="statement">
+  <div class="inner">
+    <p class="tag" appReveal>Filozofia</p>
+    <p #textEl class="body">
+      <span
+        *ngFor="let word of words"
+        class="word"
+        [class.lit]="word.isLit && !word.isGold"
+        [class.lit-gold]="word.isLit && word.isGold"
+      >{{ word.text }} </span>
+    </p>
+  </div>
+</section>

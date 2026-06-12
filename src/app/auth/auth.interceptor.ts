@@ -22,16 +22,15 @@ export class AuthInterceptor implements HttpInterceptor{
       return next.handle(request).pipe(
           catchError((err) => {
             if (err instanceof HttpErrorResponse) {
-                if (err.status === 401) {
-                // redirect user to the logout page
-             }
+                if (err.status === 401 || err.status === 403) {
+                  localStorage.removeItem('auth_app_token');
+                  this.router.navigate(['/login']);
+                }
           }
           return throwError(err);
         })
        )
       }
-
-      //TO EDIT CHECK
 
 
 

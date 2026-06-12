@@ -2,12 +2,14 @@
   <p class="sec-label" appReveal>Portfolio</p>
   <h2 class="sec-title" appReveal [revealDelay]="100">Nasze realizacje</h2>
 
-  <div class="grid" *ngIf="realizationsList?.list?.length">
+  <div class="grid"
+       *ngIf="realizationsList?.list?.length"
+       [class.leaving]="gridState === 'leaving'"
+       [class.enter-right]="gridState === 'enter-right'"
+       [class.enter-left]="gridState === 'enter-left'">
     <div
       *ngFor="let item of realizationsList!.list; let i = index"
       class="card"
-      appReveal
-      [revealDelay]="(i + 1) * 100"
       (click)="openPreview(item)"
     >
       <div

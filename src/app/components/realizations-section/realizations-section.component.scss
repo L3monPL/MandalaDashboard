@@ -127,3 +127,29 @@
 @media (max-width: 420px) {
   .realizations { padding: 4rem 1.2rem; }
 }
+
+/* ── Page transition animations ── */
+@keyframes grid-fade-out {
+  to { opacity: 0; }
+}
+@keyframes grid-enter-right {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: none; }
+}
+@keyframes grid-enter-left {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: none; }
+}
+
+.grid {
+  &.leaving {
+    animation: grid-fade-out .2s ease forwards;
+    pointer-events: none;
+  }
+  &.enter-right {
+    animation: grid-enter-right .4s cubic-bezier(.25, .46, .45, .94) both;
+  }
+  &.enter-left {
+    animation: grid-enter-left .4s cubic-bezier(.25, .46, .45, .94) both;
+  }
+}

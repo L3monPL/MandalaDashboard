@@ -6,6 +6,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { UserDataService } from './services/global/user-data.service';
 import { ToastModule } from './components/toast/toast.module';
+import { CookieConsentModule } from './components/cookie-consent/cookie-consent.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     HttpClientModule,
     ToastModule,
+    CookieConsentModule,
     BrowserAnimationsModule
   ],
   providers: [

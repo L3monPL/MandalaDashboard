@@ -1,0 +1,33 @@
+<div class="cookie-bar" [class.visible]="visible" role="dialog" aria-label="Informacja o plikach cookie" aria-live="polite">
+
+  <div class="cookie-inner">
+
+    <div class="cookie-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="8.5"  cy="8.5"  r="1.5" fill="currentColor"/>
+        <circle cx="15.5" cy="8.5"  r="1.5" fill="currentColor"/>
+        <circle cx="8.5"  cy="15.5" r="1.5" fill="currentColor"/>
+        <circle cx="15.5" cy="15.5" r="1.5" fill="currentColor"/>
+        <circle cx="12"   cy="12"   r="1.5" fill="currentColor"/>
+      </svg>
+    </div>
+
+    <div class="cookie-text">
+      <p class="cookie-title">Pliki cookie</p>
+      <p class="cookie-desc">
+        Ta strona używa plików cookie niezbędnych do jej prawidłowego działania
+        oraz opcjonalnych plików analitycznych. Możesz zaakceptować wszystkie pliki cookie
+        lub wybrać tylko niezbędne. Więcej informacji znajdziesz w naszej
+        <button class="cookie-link" (click)="openPolicy()">Polityce prywatności</button>.
+      </p>
+    </div>
+
+    <div class="cookie-actions">
+      <button class="btn-necessary" (click)="acceptNecessary()">Tylko niezbędne</button>
+      <button class="btn-accept"    (click)="acceptAll()">Akceptuję wszystkie</button>
+    </div>
+
+  </div>
+
+</div>

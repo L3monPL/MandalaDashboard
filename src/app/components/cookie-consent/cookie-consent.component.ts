@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,21 +11,28 @@ export class CookieConsentComponent implements OnInit {
   visible = false;
   private readonly KEY = 'mandala_cookie_consent';
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
-    if (!localStorage.getItem(this.KEY)) {
+    if (isPlatformBrowser(this.platformId) && !localStorage.getItem(this.KEY)) {
       setTimeout(() => { this.visible = true; }, 800);
     }
   }
 
   acceptAll(): void {
-    localStorage.setItem(this.KEY, 'all');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.KEY, 'all');
+    }
     this.visible = false;
   }
 
   acceptNecessary(): void {
-    localStorage.setItem(this.KEY, 'necessary');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.setItem(this.KEY, 'necessary');
+    }
     this.visible = false;
   }
 

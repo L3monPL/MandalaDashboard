@@ -1,4 +1,5 @@
-import { Directive, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, Inject, Input, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 @Directive({ selector: '[appCountUp]' })
 export class CountUpDirective implements OnInit, OnDestroy {
@@ -6,16 +7,24 @@ export class CountUpDirective implements OnInit, OnDestroy {
   @Input() countSuffix = '';
   @Input() countDuration = 1800;
 
-  private observer!: IntersectionObserver;
+  private observer?: IntersectionObserver;
 
-  constructor(private el: ElementRef) {}
+  constructor(
+    private el: ElementRef,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      this.el.nativeElement.textContent = this.appCountUp + this.countSuffix;
+      return;
+    }
+
     this.observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           this.animate();
-          this.observer.disconnect();
+          this.observer?.disconnect();
         }
       },
       { threshold: 0.5 }

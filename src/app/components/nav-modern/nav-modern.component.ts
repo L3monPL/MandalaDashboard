@@ -1,4 +1,5 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener, Inject, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { MainManagementService } from 'src/app/services/main-management.service';
 
 @Component({
@@ -7,14 +8,19 @@ import { MainManagementService } from 'src/app/services/main-management.service'
   styleUrls: ['./nav-modern.component.scss']
 })
 export class NavModernComponent {
-  isScrolled    = false;
-  isMobileOpen  = false;
+  isScrolled   = false;
+  isMobileOpen = false;
 
-  constructor(private mainService: MainManagementService) {}
+  constructor(
+    private mainService: MainManagementService,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
   @HostListener('window:scroll')
   onScroll(): void {
-    this.isScrolled = window.scrollY > 60;
+    if (isPlatformBrowser(this.platformId)) {
+      this.isScrolled = window.scrollY > 60;
+    }
   }
 
   @HostListener('document:keydown.escape')
@@ -33,11 +39,15 @@ export class NavModernComponent {
 
   private openMobile(): void {
     this.isMobileOpen = true;
-    document.body.style.overflow = 'hidden';
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.overflow = 'hidden';
+    }
   }
 
   private closeMobile(): void {
     this.isMobileOpen = false;
-    document.body.style.overflow = '';
+    if (isPlatformBrowser(this.platformId)) {
+      document.body.style.overflow = '';
+    }
   }
 }

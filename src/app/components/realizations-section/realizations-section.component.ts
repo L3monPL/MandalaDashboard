@@ -1,4 +1,5 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { Realization, RealizationListPaginator, RestService } from 'src/app/services/rest.service';
@@ -26,10 +27,12 @@ export class RealizationsSectionComponent implements OnInit, OnDestroy {
 
   constructor(
     private rest: RestService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   ngOnInit(): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     this.loadPage(1);
   }
 
@@ -60,6 +63,7 @@ export class RealizationsSectionComponent implements OnInit, OnDestroy {
   }
 
   private loadImages(list: Realization[]): void {
+    if (!isPlatformBrowser(this.platformId)) return;
     list.forEach((item) => {
       const coverImage = item.images.find(img => img.position === 0) ?? item.images[0];
       if (!coverImage) return;

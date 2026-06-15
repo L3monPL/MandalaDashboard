@@ -1,160 +1,223 @@
+/* ── Hero shell ── */
 .hero {
   position: relative;
   min-height: 100vh;
+  background: var(--dark);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 1.8rem;
+  padding: 5rem 2rem;
+  box-sizing: border-box;
   overflow: hidden;
-  background: var(--dark);
 }
 
-/* ── Mandala background ── */
-.mandala-bg {
-  position: absolute;
-  inset: 0;
+/* ── Top brand text ── */
+.hero-top {
+  text-align: center;
+  opacity: 0;
+  animation: fadeDown .9s .3s cubic-bezier(.25, .46, .45, .94) forwards;
+}
+
+.h-eyebrow {
+  font-size: .65rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin: 0 0 .7rem;
+  font-weight: 400;
+}
+
+.h-brand {
+  font-family: 'MandalaBrampton', sans-serif;
+  font-size: clamp(3.2rem, 7vw, 6rem);
+  letter-spacing: 18px;
+  text-indent: 18px; /* compensate letter-spacing right-shift on centered text */
+  color: #fff;
+  margin: 0;
+  line-height: 1;
+  font-weight: 400;
+}
+
+/* ── Orbital visual ── */
+.hero-visual {
+  position: relative;
+  width: 420px;
+  height: 420px;
+  flex-shrink: 0;
+  opacity: 0;
+  animation: fadeIn 1.4s .8s cubic-bezier(.25, .46, .45, .94) forwards;
+}
+
+/* ── Bottom brand + location ── */
+.hero-foot {
+  text-align: center;
+  opacity: 0;
+  animation: fadeUp .9s 1.4s cubic-bezier(.25, .46, .45, .94) forwards;
+}
+
+.h-sub {
+  font-family: 'MandalaBrampton', sans-serif;
+  font-size: clamp(1rem, 2.5vw, 1.8rem);
+  letter-spacing: 12px;
+  text-indent: 12px;
+  color: var(--gold);
+  margin: 0 0 .9rem;
+  font-weight: 400;
+}
+
+.h-location {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: .9rem;
+  font-size: .63rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--gray-dim);
+}
+
+.h-rule {
+  display: block;
+  width: 28px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(197, 163, 66, .4), transparent);
+  flex-shrink: 0;
+}
+
+/* ── Aura glow ── */
+.aura {
+  position: absolute;
+  inset: -60px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center,
+    rgba(197, 163, 66, .13) 0%,
+    rgba(197, 163, 66, .04) 40%,
+    transparent 70%
+  );
+  pointer-events: none;
+  animation: aura-breathe 5s ease-in-out infinite;
+}
+
+/* ── SVG ticks ── */
+.ticks {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
 }
 
-.mandala-svg {
-  position: absolute;
-  width: 680px;
-  height: 680px;
-  opacity: .06;
-  animation: spin 80s linear infinite;
-}
-
-.ring {
+/* ── Rail rings (static) ── */
+.rail {
   position: absolute;
   border-radius: 50%;
-  border: 1px solid rgba(197, 163, 66, .18);
-}
-.ring-1 { width: 700px; height: 700px; opacity: .4; animation: spin    60s linear infinite; }
-.ring-2 { width: 550px; height: 550px; opacity: .5; animation: spin-r  40s linear infinite; }
-.ring-3 { width: 420px; height: 420px; opacity: .6; animation: spin    25s linear infinite; }
-.ring-4 { width: 300px; height: 300px; opacity: .7; animation: spin-r  16s linear infinite; }
-.ring-5 { width: 200px; height: 200px; opacity: .8; animation: spin    10s linear infinite; }
+  border: 1px solid rgba(197, 163, 66, .14);
+  pointer-events: none;
 
-.glow {
+  &.r-out { width: 320px; height: 320px; top: 50px;  left: 50px;  }
+  &.r-mid { width: 220px; height: 220px; top: 100px; left: 100px; }
+  &.r-in  { width: 120px; height: 120px; top: 150px; left: 150px; }
+}
+
+/* ── Orbit rings ── */
+.orbit {
   position: absolute;
-  width: 700px;
-  height: 700px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(197, 163, 66, .07) 0%, transparent 65%);
+  border: none;
+
+  &::before {
+    content: '';
+    position: absolute;
+    border-radius: 50%;
+  }
 }
 
-/* ── Content ── */
-.content {
+.o-out {
+  width: 320px; height: 320px;
+  top: 50px; left: 50px;
+  animation: spin 24s linear infinite;
+
+  &::before {
+    width: 9px; height: 9px;
+    top: -4.5px; left: calc(50% - 4.5px);
+    background: var(--gold);
+    box-shadow: 0 0 10px 4px rgba(197, 163, 66, .6);
+  }
+}
+.o-out-b { animation-delay: -12s; }
+
+.o-mid {
+  width: 220px; height: 220px;
+  top: 100px; left: 100px;
+  animation: spin-r 16s linear infinite;
+
+  &::before {
+    width: 7px; height: 7px;
+    top: -3.5px; left: calc(50% - 3.5px);
+    background: var(--gold);
+    box-shadow: 0 0 8px 3px rgba(197, 163, 66, .5);
+  }
+}
+.o-mid-b { animation-delay: -5.33s; }
+.o-mid-c { animation-delay: -10.67s; }
+
+.o-in {
+  width: 120px; height: 120px;
+  top: 150px; left: 150px;
+  animation: spin 9s linear infinite;
+
+  &::before {
+    width: 11px; height: 11px;
+    top: -5.5px; left: calc(50% - 5.5px);
+    background: var(--gold-light);
+    box-shadow: 0 0 14px 6px rgba(197, 163, 66, .75);
+  }
+}
+
+/* ── Core ── */
+.core {
+  position: absolute;
+  width: 56px; height: 56px;
+  top: 182px; left: 182px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.core-img {
+  width: 40px; height: 40px;
+  object-fit: contain;
   position: relative;
   z-index: 1;
-  text-align: center;
-  max-width: 880px;
-  width: 100%;
-  padding: 0 2rem;
-  box-sizing: border-box;
+  animation: core-glow 4s ease-in-out infinite;
 }
 
-.eyebrow {
-  font-size: .7rem;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  color: var(--gold);
-  margin-bottom: 1.8rem;
-  opacity: 0;
-  animation: fadeUp .9s .4s forwards;
-}
+.core-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(197, 163, 66, .6);
+  inset: -6px;
 
-.title {
-  font-size: clamp(3.8rem, 11vw, 8.5rem);
-  font-weight: 800;
-  line-height: .96;
-  letter-spacing: -3px;
-  color: #fff;
-  margin-bottom: 2rem;
-  opacity: 0;
-  animation: fadeUp .9s .6s forwards;
-
-  em {
-    color: var(--gold);
-    font-style: normal;
-    display: block;
-  }
-}
-
-.subtitle {
-  font-size: clamp(.95rem, 1.8vw, 1.2rem);
-  font-weight: 300;
-  color: var(--gray);
-  max-width: 520px;
-  margin: 0 auto 3rem;
-  line-height: 1.8;
-  opacity: 0;
-  animation: fadeUp .9s .8s forwards;
-}
-
-.actions {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  opacity: 0;
-  animation: fadeUp .9s 1s forwards;
-}
-
-.btn-primary {
-  padding: .85rem 2.2rem;
-  border-radius: 100px;
-  background: var(--gold);
-  color: var(--dark);
-  font-size: .85rem;
-  font-weight: 600;
-  font-family: inherit;
-  border: none;
-  cursor: pointer;
-  transition: all .3s cubic-bezier(.25, .46, .45, .94);
-
-  &:hover {
-    background: var(--gold-light);
-    transform: translateY(-2px);
-    box-shadow: 0 20px 50px rgba(197, 163, 66, .28);
-  }
-}
-
-.btn-secondary {
-  padding: .85rem 2.2rem;
-  border-radius: 100px;
-  background: transparent;
-  color: #fff;
-  font-size: .85rem;
-  font-weight: 400;
-  font-family: inherit;
-  border: 1px solid var(--border);
-  cursor: pointer;
-  transition: all .3s;
-
-  &:hover {
-    border-color: rgba(255, 255, 255, .3);
-    background: rgba(255, 255, 255, .05);
-  }
+  &.cr1 { animation: pulse-ring 2.8s ease-out infinite; }
+  &.cr2 { animation: pulse-ring 2.8s -1.4s ease-out infinite; }
 }
 
 /* ── Scroll hint ── */
 .scroll-hint {
-  position: absolute;
-  bottom: 2.5rem;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: .5rem;
   opacity: 0;
-  animation: fadeIn 1s 1.6s forwards;
+  animation: fadeIn 1s 2.2s forwards;
+  margin-top: .5rem;
 
   span {
-    font-size: .65rem;
+    font-size: .6rem;
     letter-spacing: 3px;
+    text-indent: 3px;
     text-transform: uppercase;
     color: var(--gray-dim);
   }
@@ -162,75 +225,71 @@
 
 .scroll-line {
   width: 1px;
-  height: 50px;
+  height: 46px;
   background: linear-gradient(to bottom, var(--gold), transparent);
   animation: drip 2s ease-in-out infinite;
 }
 
 /* ── Keyframes ── */
-@keyframes spin    { to { transform: rotate(360deg);  } }
-@keyframes spin-r  { to { transform: rotate(-360deg); } }
-@keyframes fadeUp  { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
-@keyframes fadeIn  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes spin   { to { transform: rotate(360deg);  } }
+@keyframes spin-r { to { transform: rotate(-360deg); } }
+
+@keyframes fadeIn   { from { opacity: 0; }                          to { opacity: 1; transform: none; } }
+@keyframes fadeUp   { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-20px);} to { opacity: 1; transform: none; } }
+
+@keyframes aura-breathe {
+  0%, 100% { opacity: .7; transform: scale(1); }
+  50%       { opacity: 1;  transform: scale(1.08); }
+}
+
+@keyframes core-glow {
+  0%, 100% { filter: brightness(1)   drop-shadow(0 0 6px  rgba(197, 163, 66, .5)); }
+  50%       { filter: brightness(1.4) drop-shadow(0 0 18px rgba(197, 163, 66, .9)); }
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: .8; }
+  100% { transform: scale(4.5); opacity: 0;  }
+}
+
 @keyframes drip {
-  0%   { opacity: 1; transform: scaleY(0); transform-origin: top;    }
-  49%  { opacity: 1; transform: scaleY(1); transform-origin: top;    }
+  0%   { opacity: 1; transform: scaleY(0); transform-origin: top; }
+  49%  { opacity: 1; transform: scaleY(1); transform-origin: top; }
   50%  { opacity: 1; transform: scaleY(1); transform-origin: bottom; }
   100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
 }
 
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .hero { gap: 1.4rem; padding: 4.5rem 2rem; }
+  .h-brand { letter-spacing: 12px; text-indent: 12px; }
+  .h-sub   { letter-spacing: 8px;  text-indent: 8px; }
+}
+
 @media (max-width: 768px) {
-  .mandala-svg { width: 480px; height: 480px; }
-  .ring-1 { width: 500px; height: 500px; }
-  .ring-2 { width: 400px; height: 400px; }
-  .ring-3 { width: 300px; height: 300px; }
-  .ring-4 { width: 220px; height: 220px; }
-  .ring-5 { width: 150px; height: 150px; }
-  .glow   { width: 500px; height: 500px; }
+  /* scale(0.82) → visual appears 344px, saves 76px total → 38px each side */
+  /* gap must be > 38px to avoid overlap → using 3.5rem ≈ 56px → net ≈ 18px */
+  .hero { gap: 3.5rem; }
+  .hero-visual { transform: scale(.82); margin: -38px 0; }
 }
 
 @media (max-width: 600px) {
-  .actions { flex-direction: column; align-items: center; }
-  .content { padding: 0 1.5rem; }
-  .title {
-    font-size: clamp(2.6rem, 9vw, 3.8rem);
-    letter-spacing: -1px;
-  }
-  .eyebrow {
-    font-size: .62rem;
-    letter-spacing: 2px;
-  }
-  .subtitle {
-    font-size: .9rem;
-    max-width: 100%;
-  }
-  .mandala-svg { width: 340px; height: 340px; }
-  .ring-1 { width: 360px; height: 360px; }
-  .ring-2 { width: 290px; height: 290px; }
-  .ring-3 { width: 220px; height: 220px; }
-  .ring-4 { width: 160px; height: 160px; }
-  .ring-5 { width: 110px; height: 110px; }
-  .glow   { width: 360px; height: 360px; }
+  /* scale(0.68) → saves 134px total → 67px each side */
+  /* gap > 67px → using 5.5rem ≈ 88px → net ≈ 21px */
+  .hero { gap: 5.5rem; padding: 4rem 1.5rem; }
+  .hero-visual { transform: scale(.68); margin: -67px 0; }
+  .h-brand { letter-spacing: 8px; text-indent: 8px; }
+  .h-sub   { letter-spacing: 5px; text-indent: 5px; }
+  .h-location { font-size: .58rem; gap: .6rem; }
+  .h-rule { width: 18px; }
 }
 
 @media (max-width: 420px) {
-  .content { padding: 0 1.2rem; }
-  .title {
-    font-size: clamp(2.2rem, 8vw, 2.8rem);
-    letter-spacing: -.5px;
-  }
-  .eyebrow {
-    font-size: .58rem;
-    letter-spacing: 1.5px;
-    line-height: 1.8;
-    white-space: normal;
-  }
-  .subtitle { font-size: .85rem; }
-  .mandala-svg { width: 260px; height: 260px; }
-  .ring-1 { width: 280px; height: 280px; }
-  .ring-2 { width: 225px; height: 225px; }
-  .ring-3 { width: 172px; height: 172px; }
-  .ring-4 { width: 124px; height: 124px; }
-  .ring-5 { width: 84px;  height: 84px; }
-  .glow   { width: 280px; height: 280px; }
+  /* scale(0.54) → saves 193px total → 97px each side */
+  /* gap > 97px → using 7rem ≈ 112px → net ≈ 15px */
+  .hero { gap: 7rem; padding: 3.5rem 1rem; }
+  .hero-visual { transform: scale(.54); margin: -97px 0; }
+  .h-brand { letter-spacing: 5px; text-indent: 5px; }
+  .h-sub   { letter-spacing: 3px; text-indent: 3px; }
 }

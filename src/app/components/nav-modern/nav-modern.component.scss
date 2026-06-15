@@ -10,7 +10,16 @@ nav {
   justify-content: space-between;
   padding: 1.5rem 5rem;
   box-sizing: border-box;
-  transition: padding .4s, background .4s, border-color .4s;
+  /* Start with same RGB as scrolled state, alpha=0 — prevents color interpolation artifacts */
+  background: rgba(8, 8, 8, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition: padding .4s ease,
+              background .35s ease,
+              backdrop-filter .35s ease,
+              -webkit-backdrop-filter .35s ease,
+              border-color .35s ease;
 }
 
 nav.scrolled {

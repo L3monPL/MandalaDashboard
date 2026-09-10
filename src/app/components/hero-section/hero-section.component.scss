@@ -262,7 +262,7 @@
 
 /* ── Responsive ── */
 @media (max-width: 900px) {
-  .hero { gap: 1.4rem; padding: 4.5rem 2rem; }
+  .hero { gap: 1.4rem; padding: 4.5rem 2rem; padding-top: 6.2rem; }
   .h-brand { letter-spacing: 12px; text-indent: 12px; }
   .h-sub   { letter-spacing: 8px;  text-indent: 8px; }
 }
@@ -277,7 +277,7 @@
 @media (max-width: 600px) {
   /* scale(0.68) → saves 134px total → 67px each side */
   /* gap > 67px → using 5.5rem ≈ 88px → net ≈ 21px */
-  .hero { gap: 5.5rem; padding: 4rem 1.5rem; }
+  .hero { gap: 5.5rem; padding: 4rem 1.5rem; padding-top: 6.2rem; }
   .hero-visual { transform: scale(.68); margin: -67px 0; }
   .h-brand { letter-spacing: 8px; text-indent: 8px; }
   .h-sub   { letter-spacing: 5px; text-indent: 5px; }
@@ -288,7 +288,7 @@
 @media (max-width: 420px) {
   /* scale(0.54) → saves 193px total → 97px each side */
   /* gap > 97px → using 7rem ≈ 112px → net ≈ 15px */
-  .hero { gap: 7rem; padding: 3.5rem 1rem; }
+  .hero { gap: 7rem; padding: 3.5rem 1rem; padding-top: 6.2rem; }
   .hero-visual { transform: scale(.54); margin: -97px 0; }
   .h-brand { letter-spacing: 5px; text-indent: 5px; }
   .h-sub   { letter-spacing: 3px; text-indent: 3px; }

@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN npm install -g npm@9.6.1
 RUN npm install
-RUN npm run prerender
+RUN npm run build
 
 FROM nginx:alpine
 RUN rm /etc/nginx/conf.d/default.conf

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomePageModule } from './pages/home-page/home-page.module';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { LoginPageModule } from './pages/login-page/login-page.module';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {
@@ -15,6 +16,7 @@ const routes: Routes = [
   },
   {
     path: 'dashboard',
+    canActivate: [AuthGuard],
     loadChildren: () => import('./pages/dashboard-page/dashboard-page.module').then(m=>m.DashboardPageModule)
   },
   {

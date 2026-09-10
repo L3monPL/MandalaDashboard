@@ -1,0 +1,54 @@
+<section class="services">
+
+  <!-- Background rings (mirrors hero aesthetic) -->
+  <div class="bg-deco" aria-hidden="true">
+    <div class="deco-wrap">
+      <div class="deco-ring r1"></div>
+      <div class="deco-ring r2"></div>
+      <div class="deco-ring r3"></div>
+    </div>
+    <div class="deco-glow"></div>
+  </div>
+
+  <!-- Section header -->
+  <div class="s-header" appReveal>
+    <div class="label-row">
+      <span class="label-line"></span>
+      <p class="sec-label">Zakres usług</p>
+      <span class="label-line"></span>
+    </div>
+    <h2 class="sec-title">
+      Kompleksowa opieka<br>nad każdą <em>nieruchomością</em>
+    </h2>
+  </div>
+
+  <!-- Cards -->
+  <div class="grid">
+    <div
+      *ngFor="let svc of services; let i = index"
+      class="card"
+      appReveal
+      [revealDelay]="(i + 1) * 120"
+    >
+      <div class="card-media">
+        <img class="card-img" [src]="svc.image" [alt]="svc.title" loading="lazy">
+        <div class="card-overlay"></div>
+        <span class="card-num">{{ svc.num }}</span>
+      </div>
+
+      <div class="card-body">
+        <h3 class="card-title">{{ svc.title }}</h3>
+        <p class="card-desc">{{ svc.desc }}</p>
+        <div class="card-cta">
+          <span class="cta-line"></span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="card-glow-border"></div>
+    </div>
+  </div>
+
+</section>

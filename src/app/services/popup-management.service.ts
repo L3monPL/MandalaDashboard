@@ -1,20 +1,13 @@
 import { EventEmitter, Injectable } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class PopupManagementService {
 
-  popupErrorEmit: EventEmitter<any> = new EventEmitter();
-  popupSuccesEmit: EventEmitter<any> = new EventEmitter();
+  popupErrorEmit:   EventEmitter<string> = new EventEmitter();
+  popupSuccesEmit:  EventEmitter<string> = new EventEmitter();
+  popupWarningEmit: EventEmitter<string> = new EventEmitter();
 
-  constructor() { }
-
-  errorEmit(errorMassage: string){
-    this.popupErrorEmit.emit(errorMassage)
-  }
-
-  succesEmit(doneMassage: string){
-    this.popupSuccesEmit.emit(doneMassage)
-  }
+  errorEmit(message: string):   void { this.popupErrorEmit.emit(message); }
+  succesEmit(message: string):  void { this.popupSuccesEmit.emit(message); }
+  warningEmit(message: string): void { this.popupWarningEmit.emit(message); }
 }

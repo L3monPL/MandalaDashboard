@@ -1,7 +1,6 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, HostListener, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { RealizationService } from 'src/app/services/realization.service';
 import { Realization, RestService } from 'src/app/services/rest.service';
 
 @Component({
@@ -9,92 +8,88 @@ import { Realization, RestService } from 'src/app/services/rest.service';
   templateUrl: './images-dialog.component.html',
   styleUrls: ['./images-dialog.component.scss']
 })
-export class ImagesDialogComponent implements OnInit{
+export class ImagesDialogComponent implements OnInit, OnDestroy {
 
-  indexSelectImage?: number = 0
+  activeIndex = 0;
+  isFading = false;
 
-  loadingRealizationImage = false
-  subRealizationImage?: Subscription
-  customErrorRealizationImage?: string
+  private subImg?: Subscription;
+  private fadeTimer?: ReturnType<typeof setTimeout>;
 
   constructor(
     private rest: RestService,
-    private realizationService: RealizationService,
     public dialogRef: MatDialogRef<ImagesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data?: Realization,
-  ) { }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    @Inject(MAT_DIALOG_DATA) public data: Realization
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.data)
-    this.data!.images.sort((a, b) => a.position - b.position)
-    this.getImages()
+    this.data!.images.sort((a, b) => a.position - b.position);
+    this.loadMissingImages();
   }
 
-  Add(){
-    this.dialogRef.close({
-      result: true
+  private loadMissingImages(): void {
+    this.data!.images.forEach((img, index) => {
+      if (img.bloob) return;
+      this.subImg = this.rest.getRealizationImage(img.id).subscribe({
+        next: (blob) => {
+          if (blob) this.data!.images[index].bloob = URL.createObjectURL(blob);
+        }
+      });
     });
   }
 
-  Close(){
+  get activeImage(): any {
+    return this.data && this.data.images ? this.data.images[this.activeIndex] : null;
+  }
+
+  get images(): any[] {
+    return this.data && this.data.images ? this.data.images : [];
+  }
+
+  get imagesCount(): number {
+    return this.images.length;
+  }
+
+  get isLastImage(): boolean {
+    return this.activeIndex >= this.imagesCount - 1;
+  }
+
+  private switchTo(index: number): void {
+    if (index === this.activeIndex) return;
+    clearTimeout(this.fadeTimer);
+    this.isFading = true;
+    this.fadeTimer = setTimeout(() => {
+      this.activeIndex = index;
+      this.isFading = false;
+    }, 160);
+  }
+
+  select(index: number): void {
+    this.switchTo(index);
+  }
+
+  prev(): void {
+    if (this.activeIndex > 0) this.switchTo(this.activeIndex - 1);
+  }
+
+  next(): void {
+    if (this.activeIndex < this.imagesCount - 1) this.switchTo(this.activeIndex + 1);
+  }
+
+  close(): void {
     this.dialogRef.close();
   }
 
-  getImages(){
-    for (let index = 0; index < this.data!.images.length; index++) {
-      // console.log(this.data!.images[index])
-      if (!this.data!.images[index]!.bloob) {
-        this.subRealizationImage = this.rest.getRealizationImage(this.data!.images[index]?.id).subscribe({
-          next: (response) => {
-            if(response){
-              // console.log(response)
-              this.data!.images[index]!.bloob = URL.createObjectURL(response)!;
-              // this.realizationsList = response.body
-            }
-            else{
-              this.customErrorRealizationImage = 'Brak obiektu odpowiedzi';
-              // this.popupService.errorEmit(this.customErrorRealizationsList)
-            }
-            this.loadingRealizationImage = false
-          },
-          error: (errorResponse) => {
-            this.loadingRealizationImage = false
-            this.customErrorRealizationImage = errorResponse.error.message
-            console.log(this.customErrorRealizationImage);
-            // this.popupService.errorEmit(errorResponse.error.message)
-          },
-          complete: () => {
-            this.loadingRealizationImage = false;
-          }
-        })
-      }
-      // this.subRealizationImage = this.rest.getRealizationImage(this.data!.images[index]?.id).subscribe({
-      //   next: (response) => {
-      //     if(response){
-      //       // console.log(response)
-      //       this.data!.images[index]!.bloob = URL.createObjectURL(response)!;
-      //       // this.realizationsList = response.body
-      //     }
-      //     else{
-      //       this.customErrorRealizationImage = 'Brak obiektu odpowiedzi';
-      //       // this.popupService.errorEmit(this.customErrorRealizationsList)
-      //     }
-      //     this.loadingRealizationImage = false
-      //   },
-      //   error: (errorResponse) => {
-      //     this.loadingRealizationImage = false
-      //     this.customErrorRealizationImage = errorResponse.error.message
-      //     console.log(this.customErrorRealizationImage);
-      //     // this.popupService.errorEmit(errorResponse.error.message)
-      //   },
-      //   complete: () => {
-      //     this.loadingRealizationImage = false;
-      //   }
-      // })
-    }
+  @HostListener('document:keydown', ['$event'])
+  onKey(e: KeyboardEvent): void {
+    if (e.key === 'ArrowLeft') this.prev();
+    else if (e.key === 'ArrowRight') this.next();
+    else if (e.key === 'Escape') this.close();
   }
 
-  selectImage(index: number){
-    this.indexSelectImage =  index
+  ngOnDestroy(): void {
+    this.subImg?.unsubscribe();
+    clearTimeout(this.fadeTimer);
   }
 }

@@ -1,0 +1,22 @@
+<div class="dialog">
+
+  <div class="dialog-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="3,6 5,6 21,6"/>
+      <path d="M19,6l-1,14a2 2 0 01-2,2H8a2 2 0 01-2-2L5,6"/>
+      <path d="M10,11v6M14,11v6"/>
+      <path d="M9,6V4a1 1 0 011-1h4a1 1 0 011,1v2"/>
+    </svg>
+  </div>
+
+  <h2 class="dialog-title">{{ data.title }}</h2>
+  <p class="dialog-message">{{ data.message }}</p>
+
+  <div class="dialog-actions">
+    <button class="btn-cancel" (click)="cancel()">Anuluj</button>
+    <button class="btn-confirm" (click)="confirm()">
+      {{ data.confirmLabel ?? 'Usuń' }}
+    </button>
+  </div>
+
+</div>

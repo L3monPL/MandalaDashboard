@@ -1,13 +1,22 @@
-<div class="page">
-    <app-dashboard-nav-label></app-dashboard-nav-label>
-    <div class="main_component">
-        <div *ngIf="this.menushow" class="navigation_component">
-            <p>Realizacje</p>
-            <!-- <p>Wiadomości</p> -->
-        </div>
-        <div class="site">
-            <router-outlet></router-outlet>
-        </div>
-    </div>
-    
+<div class="layout">
+  <app-dashboard-nav-label></app-dashboard-nav-label>
+
+  <div class="body">
+    <nav class="sidebar" *ngIf="menushow">
+      <p class="nav-section-label">Zarządzanie</p>
+      <div class="nav-item active">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7" rx="1"/>
+          <rect x="14" y="3" width="7" height="7" rx="1"/>
+          <rect x="3" y="14" width="7" height="7" rx="1"/>
+          <rect x="14" y="14" width="7" height="7" rx="1"/>
+        </svg>
+        Realizacje
+      </div>
+    </nav>
+
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>

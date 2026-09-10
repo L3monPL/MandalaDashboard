@@ -1,31 +1,73 @@
-.container_nav{
-    height: 50px;
-    background-color: #141414;
-    color: #fff;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 1.2rem;
+.topbar {
+  height: 64px;
+  background: var(--dark-2);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  flex-shrink: 0;
 }
-.title{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    column-gap: 0.5rem;
-    margin-left: 2rem;
-    color: #c5a342;
-    cursor: pointer;
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  cursor: pointer;
+
+  img {
+    height: 30px;
+    opacity: .85;
+  }
 }
-.title img{
-    height: 35px;
+
+.brand-name {
+  font-size: .95rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: .3px;
 }
-.btn_logout{
-    margin-right: 2rem;
-    cursor: pointer;
-    transition: 0.3s;
+
+.brand-dim {
+  font-weight: 300;
+  color: var(--gray);
 }
-.btn_logout:hover{
-    color: #c5a342;
-    transition: 0.3s;
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.btn-home {
+  display: flex;
+  align-items: center;
+  gap: .45rem;
+  font-size: .8rem;
+  color: var(--gray);
+  cursor: pointer;
+  transition: color .2s;
+  font-family: inherit;
+
+  &:hover { color: var(--white); }
+}
+
+.btn-logout {
+  padding: .45rem 1.25rem;
+  border-radius: 100px;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--gray);
+  font-size: .8rem;
+  font-family: inherit;
+  cursor: pointer;
+  transition: border-color .2s, color .2s;
+
+  &:hover {
+    border-color: rgba(197, 163, 66, .4);
+    color: var(--gold);
+  }
 }

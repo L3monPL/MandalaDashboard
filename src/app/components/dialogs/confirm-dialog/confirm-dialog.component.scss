@@ -1,0 +1,104 @@
+.dialog {
+  position: relative;
+  width: 360px;
+  background: var(--dark-2);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem 1.75rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, .7);
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    right: 2rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(224, 82, 82, .7), transparent);
+    border-radius: 0 0 2px 2px;
+  }
+}
+
+.dialog-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: rgba(224, 82, 82, .1);
+  border: 1px solid rgba(224, 82, 82, .2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+  color: #e05252;
+
+  svg {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+.dialog-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin: 0 0 .6rem;
+}
+
+.dialog-message {
+  font-size: .83rem;
+  color: var(--gray);
+  line-height: 1.6;
+  margin: 0 0 1.75rem;
+}
+
+.dialog-actions {
+  display: flex;
+  gap: .75rem;
+  width: 100%;
+}
+
+.btn-cancel,
+.btn-confirm {
+  flex: 1;
+  height: 40px;
+  border-radius: 8px;
+  font-size: .84rem;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, box-shadow .2s;
+}
+
+.btn-cancel {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--gray);
+
+  &:hover {
+    background: rgba(255, 255, 255, .04);
+    border-color: rgba(255, 255, 255, .15);
+    color: var(--white);
+  }
+}
+
+.btn-confirm {
+  background: rgba(224, 82, 82, .12);
+  border: 1px solid rgba(224, 82, 82, .3);
+  color: #e05252;
+
+  &:hover {
+    background: rgba(224, 82, 82, .22);
+    border-color: rgba(224, 82, 82, .55);
+    box-shadow: 0 6px 20px rgba(224, 82, 82, .18);
+  }
+}
+
+@media (max-width: 420px) {
+  .dialog { width: calc(100vw - 2rem); }
+}

@@ -1,4 +1,5 @@
 import { Component, ElementRef, OnInit } from '@angular/core';
+import { Title, Meta } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { MainManagementService } from 'src/app/services/main-management.service';
 
@@ -13,11 +14,15 @@ export class HomePageComponent implements OnInit{
 
   constructor(
     private el: ElementRef,
-    private mainService: MainManagementService
+    private mainService: MainManagementService,
+    private titleService: Title,
+    private meta: Meta
     ) {}
 
   ngOnInit(): void {
-    this.subscibeEmittNavigationSmoothScroll()
+    this.titleService.setTitle('Mandala - Zarządzanie nieruchomościami | Poznań, Skórzewo, Wielkopolska');
+    this.meta.updateTag({ name: 'description', content: 'Kompleksowe usługi zarządzania nieruchomościami na wynajem, zarządzania okresem deweloperskim, obsługa nieruchomości komercyjnych i wspólnotowych, oraz serwis konserwatorski — Poznań, Skórzewo, Wielkopolska.' });
+    this.subscibeEmittNavigationSmoothScroll();
   }
 
   subscibeEmittNavigationSmoothScroll(){
@@ -26,17 +31,11 @@ export class HomePageComponent implements OnInit{
     })
   }
 
-  scrollToSection(sectionId: string) {
+  scrollToSection(sectionId: string): void {
     const section = this.el.nativeElement.querySelector(`#${sectionId}`);
     if (section) {
-      // section.scrollIntoView({ behavior: 'smooth' });
-      const scrollOffset = section.getBoundingClientRect().top - 30;
-    
-    // Scroll to the section with smooth behavior
-    window.scrollBy({
-      top: scrollOffset,
-      behavior: 'smooth',
-    });
+      const top = section.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top, behavior: 'smooth' });
     }
   }
 

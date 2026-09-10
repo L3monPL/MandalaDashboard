@@ -1,58 +1,36 @@
-import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { HttpErrorResponse, HttpInterceptor, HttpRequest } from "@angular/common/http";
+import { Inject, Injectable, PLATFORM_ID } from "@angular/core";
+import { isPlatformBrowser } from "@angular/common";
 import { Router } from "@angular/router";
-import { Observable, catchError, throwError } from "rxjs";
+import { catchError, throwError } from "rxjs";
 
 @Injectable()
-export class AuthInterceptor implements HttpInterceptor{
-    constructor(
-        private router: Router
-    ){
+export class AuthInterceptor implements HttpInterceptor {
+  constructor(
+    private router: Router,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
 
+  intercept(request: HttpRequest<any>, next: any) {
+    if (isPlatformBrowser(this.platformId)) {
+      const token = localStorage.getItem('auth_app_token');
+      if (token) {
+        request = request.clone({
+          setHeaders: { Authorization: `${token}` }
+        });
+      }
     }
 
-    intercept(request: HttpRequest<any>, next: any) {  
-        let token = localStorage.getItem('auth_app_token')
-       if (token) {
-         request = request.clone({
-            setHeaders: {Authorization: `${token}`}
-         });
-      }
-    
-      return next.handle(request).pipe(
-          catchError((err) => {
-            if (err instanceof HttpErrorResponse) {
-                if (err.status === 401) {
-                // redirect user to the logout page
-             }
+    return next.handle(request).pipe(
+      catchError((err) => {
+        if (isPlatformBrowser(this.platformId) && err instanceof HttpErrorResponse) {
+          if (err.status === 401 || err.status === 403) {
+            localStorage.removeItem('auth_app_token');
+            this.router.navigate(['/login']);
           }
-          return throwError(err);
-        })
-       )
-      }
-
-      //TO EDIT CHECK
-
-
-
-
-
-
-
-
-
-
-    // intercept(req: HttpRequest<any>, next: HttpHandler) {
-    //     return next.handle(req).pipe(
-    //       catchError((error: HttpErrorResponse) => {
-    //         if (error.status === 401) {
-    //           this.router.navigate(['/login']);
-    //         }
-    //         if (error.status === 403) {
-    //             this.router.navigate(['/login']);
-    //           }
-    //         throw error;
-    //       })
-    //     );
-    //   }
+        }
+        return throwError(() => err);
+      })
+    );
+  }
 }

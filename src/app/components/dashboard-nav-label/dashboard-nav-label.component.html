@@ -1,11 +1,16 @@
-<div class="container_nav">
-    <div class="title">
-        <img src="../../../assets/logo/Mandala_sygnet_bialy_przezroczystosc.png" alt="">
-        <div (click)="home()" class="text">
-            Mandala
-        </div>
+<header class="topbar">
+  <div class="brand" (click)="home()">
+    <img src="../../../assets/logo/Mandala_sygnet_bialy_przezroczystosc.png" alt="Mandala">
+    <span class="brand-name">Mandala <span class="brand-dim">Dashboard</span></span>
+  </div>
+  <div class="actions">
+    <div class="btn-home" (click)="home()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+        <polyline points="9,22 9,12 15,12 15,22"/>
+      </svg>
+      Strona główna
     </div>
-    <div (click)="logout()" class="btn_logout">
-        Wyloguj się
-    </div>
-</div>
+    <button class="btn-logout" (click)="logout()">Wyloguj się</button>
+  </div>
+</header>

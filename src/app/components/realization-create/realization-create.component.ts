@@ -36,28 +36,41 @@ export class RealizationCreateComponent implements OnInit{
   selectedFile: any = null;
   selectedImages: any[] = []
 
+  private isValidImage(file: File): boolean {
+    return file.type === 'image/png' || file.type === 'image/jpeg';
+  }
+
+  private warnInvalidFile(name: string): void {
+    this.popupService.warningEmit(`Plik „${name}" ma nieprawidłowy format. Akceptowane są tylko PNG i JPG.`);
+  }
+
   handleFileInput(event: any): void {
     const files: any = event.target.files;
-    console.log(files)
     for (let i = 0; i < files.length; i++) {
-      this.fileToUploads.push(files.item(i));
+      const file = files.item(i);
+      if (!this.isValidImage(file)) { this.warnInvalidFile(file.name); continue; }
+      this.fileToUploads.push(file);
       this.realizationManagement.objectRealizationCreate.imagesArray.push({
-        bloob: files.item(i),
+        bloob: file,
         position: i
-      })
+      });
     }
   }
 
   onImagesSelected(event: any) {
     const files = event.target.files;
-    console.log(files)
     if (files) {
       for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (!this.isValidImage(file)) { this.warnInvalidFile(file.name); continue; }
         const reader = new FileReader();
         reader.onload = (e) => {
           this.selectedImages.push(e.target!.result);
+          if (this.selectedFile === null) {
+            this.selectFile(this.selectedImages[0], 0);
+          }
         };
-        reader.readAsDataURL(files[i]);
+        reader.readAsDataURL(file);
       }
     }
   }
@@ -82,18 +95,23 @@ export class RealizationCreateComponent implements OnInit{
     const files = event.dataTransfer?.files;
     if (files) {
       for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        if (!this.isValidImage(file)) { this.warnInvalidFile(file.name); continue; }
 
         const reader = new FileReader();
         reader.onload = (e) => {
           this.selectedImages.push(e.target!.result);
+          if (this.selectedFile === null) {
+            this.selectFile(this.selectedImages[0], 0);
+          }
         };
-        reader.readAsDataURL(files[i]);
+        reader.readAsDataURL(file);
 
-        this.fileToUploads.push(files.item(i));
+        this.fileToUploads.push(file);
         this.realizationManagement.objectRealizationCreate.imagesArray.push({
-          bloob: files.item(i),
+          bloob: file,
           position: i,
-        })
+        });
       }
     }
   }
@@ -226,6 +244,17 @@ export class RealizationCreateComponent implements OnInit{
     this.fileToUploads = []
     this.selectedFile = null
     this.selectedImages = []
+  }
+
+  removeImage(index: number, event: Event): void {
+    event.stopPropagation();
+    if (this.selectedFile === this.selectedImages[index]) {
+      this.selectedFile = null;
+      this.realizationManagement.indexFirstImageSelected = null;
+    }
+    this.selectedImages.splice(index, 1);
+    this.fileToUploads.splice(index, 1);
+    this.realizationManagement.objectRealizationCreate.imagesArray.splice(index, 1);
   }
 
   clearImages(){

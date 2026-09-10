@@ -1,28 +1,102 @@
-<div class="box">
-    <form [formGroup]="loginForm" (submit)="submit()" class="container">
-        <div class="top-header">
-            <img alt="logo" src="../../../assets/logo/Mandala_sygnet_bialy_przezroczystosc.png"/>
-            <span>Mandala Dashboard</span>
-            <!-- <header>Login</header> -->
-        </div>
+<div class="login-root">
 
-        <div class="input-field">
-            <input type="text" formControlName="email" placeholder="e-mail">
-            <mat-icon color="primary" fontIcon="person"></mat-icon>
+  <!-- Background decorations -->
+  <div class="bg-deco" aria-hidden="true">
+    <div class="deco-ring r1"></div>
+    <div class="deco-ring r2"></div>
+    <div class="deco-ring r3"></div>
+    <div class="deco-glow"></div>
+  </div>
+
+  <!-- Card -->
+  <div class="card">
+
+    <!-- Brand -->
+    <div class="brand">
+      <img class="brand-logo" src="../../../assets/logo/Mandala_sygnet_bialy_przezroczystosc.png" alt="Mandala logo">
+      <div class="brand-text">
+        <span class="brand-name">Mandala</span>
+        <span class="brand-sub">Dashboard</span>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- Form -->
+    <form [formGroup]="loginForm" (submit)="submit()" autocomplete="off" novalidate>
+
+      <!-- E-mail -->
+      <div class="field">
+        <label class="field-label" for="login-email">E-mail</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+            <polyline points="22,6 12,13 2,6"/>
+          </svg>
+          <input
+            id="login-email"
+            class="field-input"
+            type="text"
+            formControlName="email"
+            placeholder="adres@email.pl"
+            autocomplete="username"
+          >
         </div>
-        <div class="input-field">
-            <input type="password" formControlName="password" placeholder="hasło">
-            <mat-icon color="primary" fontIcon="lock"></mat-icon>
+      </div>
+
+      <!-- Password -->
+      <div class="field">
+        <label class="field-label" for="login-password">Hasło</label>
+        <div class="input-wrap">
+          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
+            <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+          </svg>
+          <input
+            id="login-password"
+            class="field-input"
+            [type]="showPassword ? 'text' : 'password'"
+            formControlName="password"
+            placeholder="••••••••"
+            autocomplete="current-password"
+          >
+          <button type="button" class="toggle-pw" (click)="showPassword = !showPassword" [attr.aria-label]="showPassword ? 'Ukryj hasło' : 'Pokaż hasło'">
+            <svg *ngIf="!showPassword" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            <svg *ngIf="showPassword" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+              <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+              <line x1="1" y1="1" x2="23" y2="23"/>
+            </svg>
+          </button>
         </div>
-        <div class="input-field-submit">
-            <input type="submit" value="Zaloguj się">
-        </div>
-        <!-- <div class="input-field-password">
-            <a type="submit" routerLink="password">Przypomnij hasło</a>
-        </div> -->
+      </div>
+
+      <!-- Error -->
+      <div class="error-msg" *ngIf="customErrorLogin">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        {{ customErrorLogin }}
+      </div>
+
+      <!-- Submit -->
+      <button type="submit" class="btn-submit" [disabled]="loadingLogin || loadingUserIsLogin">
+        <div class="spinner-btn" *ngIf="loadingLogin || loadingUserIsLogin"></div>
+        <svg *ngIf="!loadingLogin && !loadingUserIsLogin" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+          <polyline points="10 17 15 12 10 7"/>
+          <line x1="15" y1="12" x2="3" y2="12"/>
+        </svg>
+        {{ (loadingLogin || loadingUserIsLogin) ? 'Logowanie...' : 'Zaloguj się' }}
+      </button>
+
     </form>
-    <img class="addition addition_top_right" src="../../../assets/additions/addition01.png" alt="">
-    <img class="addition addition_top_left" src="../../../assets/additions/addition01.png" alt="">
-    <img class="addition addition_bottom_right" src="../../../assets/additions/addition01.png" alt="">
-    <img class="addition addition_bottom_left" src="../../../assets/additions/addition01.png" alt="">
+
+  </div>
+
 </div>

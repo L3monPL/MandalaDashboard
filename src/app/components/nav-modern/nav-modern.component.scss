@@ -1,0 +1,245 @@
+/* ─────────────────────────────
+   TOP BAR
+───────────────────────────── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 5rem;
+  box-sizing: border-box;
+  /* Start with same RGB as scrolled state, alpha=0 — prevents color interpolation artifacts */
+  background: rgba(8, 8, 8, 0);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom: 1px solid transparent;
+  transition: padding .4s ease,
+              background .35s ease,
+              backdrop-filter .35s ease,
+              -webkit-backdrop-filter .35s ease,
+              border-color .35s ease;
+}
+
+nav.scrolled {
+  background: rgba(8, 8, 8, .9);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 5rem;
+}
+
+/* ── Logo ── */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  cursor: pointer;
+  color: var(--gold);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  position: relative;
+  z-index: 100001;
+
+  img { width: 32px; }
+}
+
+/* ── Desktop links ── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  li { cursor: pointer; }
+
+  a {
+    color: rgba(255, 255, 255, .6);
+    font-size: .82rem;
+    letter-spacing: .5px;
+    transition: color .25s;
+    text-decoration: none;
+  }
+
+  li:hover a { color: #fff; }
+
+  .cta {
+    border: 1px solid var(--gold-border);
+    color: var(--gold);
+    padding: .45rem 1.2rem;
+    border-radius: 100px;
+    transition: background .3s, color .3s;
+  }
+
+  li:hover .cta {
+    background: var(--gold);
+    color: var(--dark);
+  }
+}
+
+/* ── Hamburger ── */
+.burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  position: relative;
+  z-index: 100001;
+  width: 36px;
+  height: 36px;
+
+  .bar {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background: #fff;
+    border-radius: 2px;
+    transition: transform .32s cubic-bezier(.25, .46, .45, .94),
+                opacity  .22s ease,
+                width    .28s ease;
+    transform-origin: center;
+  }
+
+  &.is-open .b1 { transform: translateY(6.5px) rotate(45deg); }
+  &.is-open .b2 { opacity: 0; width: 0; }
+  &.is-open .b3 { transform: translateY(-6.5px) rotate(-45deg); }
+}
+
+/* ─────────────────────────────
+   MOBILE OVERLAY
+───────────────────────────── */
+.mob-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99997;
+  background: #080808;
+
+  /* Layout: stretch links + push contact to bottom */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 80px 2.5rem 2.5rem;
+  box-sizing: border-box;
+
+  /* Hidden state */
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity .28s ease,
+              transform .28s cubic-bezier(.25, .46, .45, .94),
+              visibility 0s linear .28s;
+
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+    transition: opacity .28s ease,
+                transform .28s cubic-bezier(.25, .46, .45, .94),
+                visibility 0s linear 0s;
+  }
+}
+
+/* ── Links list ── */
+.mob-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0;
+
+  li {
+    border-bottom: 1px solid rgba(255, 255, 255, .07);
+
+    &:first-child { border-top: 1px solid rgba(255, 255, 255, .07); }
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.2rem 0;
+    text-decoration: none;
+    font-size: clamp(1.6rem, 6vw, 2rem);
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: -.5px;
+    transition: color .22s, padding-left .22s;
+
+    &:active,
+    &:hover { color: var(--gold); padding-left: .4rem; }
+
+    &.gold { color: var(--gold); }
+  }
+
+  .n {
+    font-size: .6rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: var(--gray-dim);
+    flex-shrink: 0;
+    font-variant-numeric: tabular-nums;
+    margin-top: .1rem;
+    transition: color .22s;
+  }
+
+  a:hover .n { color: var(--gold); }
+}
+
+/* ── Bottom contact ── */
+.mob-contact {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255, 255, 255, .07);
+
+  a {
+    font-size: .8rem;
+    color: var(--gray-dim);
+    text-decoration: none;
+    letter-spacing: .3px;
+    transition: color .2s;
+
+    &:hover { color: var(--gold); }
+  }
+}
+
+/* ─────────────────────────────
+   BREAKPOINTS
+───────────────────────────── */
+@media (max-width: 1100px) {
+  nav, nav.scrolled { padding-left: 2.5rem; padding-right: 2.5rem; }
+}
+
+@media (max-width: 900px) {
+  .burger    { display: flex; }
+  .nav-links { display: none; }
+}
+
+@media (max-width: 600px) {
+  nav, nav.scrolled { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .logo { font-size: .75rem; letter-spacing: 2px; }
+  .mob-overlay { padding-left: 2rem; padding-right: 2rem; }
+}
+
+@media (max-width: 480px) {
+  .logo-text { display: none; }
+  .logo img  { width: 34px; }
+  nav, nav.scrolled { padding-left: 1.2rem; padding-right: 1.2rem; }
+  .mob-overlay { padding-left: 1.5rem; padding-right: 1.5rem; }
+  .mob-links a { font-size: clamp(1.5rem, 7vw, 1.8rem); }
+}

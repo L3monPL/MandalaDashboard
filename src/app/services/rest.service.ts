@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 
@@ -23,7 +24,8 @@ export class RestService {
   private PATH = '/api'
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) { }
 
   //------------------------------------------------------------------------//
@@ -31,7 +33,7 @@ export class RestService {
   //------------------------------------------------------------------------//
 
   getUserAuth(): Observable<HttpResponse<any>> {
-    let token = localStorage.getItem('auth_app_token')
+    const token = isPlatformBrowser(this.platformId) ? localStorage.getItem('auth_app_token') : null;
     const headers = new HttpHeaders({
       'Authorization': `${token}`
     });
@@ -44,11 +46,10 @@ export class RestService {
 
   //------------------------------------------------------------------------//
 
-  getRealizationsListPaginator(page?: number): Observable<HttpResponse<RealizationListPaginator>> {
+  getRealizationsListPaginator(page?: number, pageSize?: number): Observable<HttpResponse<RealizationListPaginator>> {
     let param = new HttpParams();
-    if (page) {
-      param = param.append('page', page)
-    }
+    if (page)     param = param.append('page', page);
+    if (pageSize) param = param.append('pageSize', pageSize);
     return this.http.get<RealizationListPaginator>(this.PATH + `/realizations/paginator`, {
       observe: 'response',
       responseType: 'json',

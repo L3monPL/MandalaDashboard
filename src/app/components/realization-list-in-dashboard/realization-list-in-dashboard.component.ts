@@ -1,7 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 import { RealizationService } from 'src/app/services/realization.service';
 import { Realization, RestService } from 'src/app/services/rest.service';
+import { ImagesDialogComponent } from '../dialogs/images-dialog/images-dialog.component';
+import { ConfirmDialogComponent } from '../dialogs/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-realization-list-in-dashboard',
@@ -27,7 +30,8 @@ export class RealizationListInDashboardComponent implements OnInit, OnDestroy{
 
   constructor(
     private rest: RestService,
-    private realizationService: RealizationService
+    private realizationService: RealizationService,
+    private dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -112,30 +116,46 @@ export class RealizationListInDashboardComponent implements OnInit, OnDestroy{
     }
   }
 
-  deleteRealization(id: number){
-    this.loadingRealizationDelete = true
-        // list[index].images[indexImage].id
-        this.subRealizationDelete = this.rest.deleteReazlization(id).subscribe({
-          next: (response) => {
-            if(response){
-              this.getRealizationsList()
-            }
-            else{
-              this.customErrorRealizationDelete = 'Brak obiektu odpowiedzi';
-              // this.popupService.errorEmit(this.customErrorRealizationsList)
-            }
-            this.loadingRealizationDelete = false
-          },
-          error: (errorResponse) => {
-            this.loadingRealizationDelete = false
-            this.customErrorRealizationDelete = errorResponse.error.message
-            console.log(this.customErrorRealizationDelete);
-            // this.popupService.errorEmit(errorResponse.error.message)
-          },
-          complete: () => {
-            this.loadingRealizationDelete = false;
-          }
-        })
+  openPreview(realization: Realization): void {
+    this.dialog.open(ImagesDialogComponent, {
+      width: '90vw',
+      height: '90vh',
+      autoFocus: false,
+      enterAnimationDuration: '200ms',
+      exitAnimationDuration: '100ms',
+      data: realization
+    });
+  }
+
+  deleteRealization(id: number, title: string): void {
+    const ref = this.dialog.open(ConfirmDialogComponent, {
+      autoFocus: false,
+      enterAnimationDuration: '180ms',
+      exitAnimationDuration: '100ms',
+      data: {
+        title: 'Usuń realizację',
+        message: `Czy na pewno chcesz usunąć realizację „${title}"? Tej operacji nie można cofnąć.`,
+        confirmLabel: 'Usuń'
+      }
+    });
+
+    ref.afterClosed().subscribe(confirmed => {
+      if (!confirmed) return;
+      this.loadingRealizationDelete = true;
+      this.subRealizationDelete = this.rest.deleteReazlization(id).subscribe({
+        next: (response) => {
+          if (response) this.getRealizationsList();
+          else this.customErrorRealizationDelete = 'Brak obiektu odpowiedzi';
+          this.loadingRealizationDelete = false;
+        },
+        error: (errorResponse) => {
+          this.loadingRealizationDelete = false;
+          this.customErrorRealizationDelete = errorResponse.error.message;
+          console.log(this.customErrorRealizationDelete);
+        },
+        complete: () => { this.loadingRealizationDelete = false; }
+      });
+    });
   }
 
   

@@ -1,29 +1,89 @@
-body, html{
-    margin: 0px;
-    padding: 0px;
-    font-family: "MandalaBrampton", sans-serif!important;
-    letter-spacing: 1px;
+/* ── Design tokens ── */
+:root {
+  --gold:        #C5A342;
+  --gold-light:  #D4B45A;
+  --gold-dim:    rgba(197, 163, 66, 0.12);
+  --gold-border: rgba(197, 163, 66, 0.25);
+  --dark:        #080808;
+  --dark-2:      #101010;
+  --dark-3:      #181818;
+  --dark-4:      #202020;
+  --white:       #ffffff;
+  --gray:        #888888;
+  --gray-dim:    #444444;
+  --border:      rgba(255, 255, 255, 0.07);
 }
-::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+
+/* ── Base reset ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
 }
-::-webkit-scrollbar-button {
-    width: 0px;
-    height: 0px;
+
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
 }
-::-webkit-scrollbar-thumb {
-    background: #c4a241;
-    border: 0px none #fff;
-    border-radius: 50px;
-}
+
+/* ── Custom scrollbar ── */
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: var(--dark); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* ── Custom font (kept for dashboard/legacy components) ── */
 @font-face {
-  font-family: 'MandalaBrampton';  // Replace with your desired font name
-  src: url('./assets/fonts/MandalaBrampton.otf') format('opentype');  // Path to your .otf file
+  font-family: 'MandalaBrampton';
+  src: url('./assets/fonts/MandalaBrampton.otf') format('opentype');
   font-weight: normal;
   font-style: normal;
 }
 
-// $global_gold: #c5a342;
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* ── Scroll reveal utility classes (applied by RevealDirective) ── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(55px);
+  transition:
+    opacity  .9s cubic-bezier(.25, .46, .45, .94),
+    transform .9s cubic-bezier(.25, .46, .45, .94);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-55px);
+  transition:
+    opacity  .9s cubic-bezier(.25, .46, .45, .94),
+    transform .9s cubic-bezier(.25, .46, .45, .94);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(55px);
+  transition:
+    opacity  .9s cubic-bezier(.25, .46, .45, .94),
+    transform .9s cubic-bezier(.25, .46, .45, .94);
+}
+
+.reveal-up.reveal-visible,
+.reveal-left.reveal-visible,
+.reveal-right.reveal-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── MatDialog override for dark portfolio dialog ── */
+.mat-dialog-container,
+.mat-mdc-dialog-container,
+.mat-mdc-dialog-surface {
+  padding: 0 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+}

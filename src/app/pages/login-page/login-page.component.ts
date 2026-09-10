@@ -15,6 +15,7 @@ export class LoginPageComponent implements OnInit{
   loadingLogin = false
   subLogin?: Subscription
   customErrorLogin?: string
+  showPassword = false
 
   loadingUserIsLogin = false
   subUserIsLogin?: Subscription
